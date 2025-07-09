@@ -8,3 +8,5 @@ Updates:
 - adding save to localStorage
 - import / export to json added
 - select platform and hours played added
+
+- dark mode toggle added

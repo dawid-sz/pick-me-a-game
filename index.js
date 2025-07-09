@@ -145,3 +145,75 @@ function filterGames() {
     return true;
   });
 }
+
+
+//ask before delete
+
+function deleteGame(index) {
+  const skipConfirmation = localStorage.getItem("skipDeleteConfirmation") === "true";
+
+  if (!skipConfirmation) {
+    const confirmationWrapper = document.createElement("div");
+    confirmationWrapper.innerHTML = `
+      <div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+                  background: rgba(0,0,0,0.5); display: flex; align-items: center;
+                  justify-content: center; z-index: 9999;">
+        <div style="background: white; padding: 20px; border-radius: 10px; max-width: 300px; text-align: center;">
+          <p>Are you sure you want to delete this game?</p>
+          <div class="form-check mb-2">
+            <input type="checkbox" class="form-check-input" id="dontAskDelete" />
+            <label class="form-check-label" for="dontAskDelete">Don’t ask again</label>
+          </div>
+          <button class="btn btn-danger btn-sm me-2" id="confirmDelete">Yes, delete</button>
+          <button class="btn btn-secondary btn-sm" id="cancelDelete">Cancel</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(confirmationWrapper);
+
+    document.getElementById("confirmDelete").onclick = () => {
+      if (document.getElementById("dontAskDelete").checked) {
+        localStorage.setItem("skipDeleteConfirmation", "true");
+      }
+      games.splice(index, 1);
+      renderGames();
+      document.body.removeChild(confirmationWrapper);
+    };
+
+    document.getElementById("cancelDelete").onclick = () => {
+      document.body.removeChild(confirmationWrapper);
+    };
+  } else {
+    games.splice(index, 1);
+    renderGames();
+  }
+}
+
+
+
+//dark / light mode
+
+function applyTheme(theme) {
+  const body = document.body;
+
+  if (theme === "dark") {
+    body.classList.remove("bg-light", "text-dark");
+    body.classList.add("bg-dark", "text-light");
+    document.getElementById("themeSwitch").checked = true;
+  } else {
+    body.classList.remove("bg-dark", "text-light");
+    body.classList.add("bg-light", "text-dark");
+    document.getElementById("themeSwitch").checked = false;
+  }
+}
+
+// Load saved theme or default to light
+const savedTheme = localStorage.getItem("theme") || "light";
+applyTheme(savedTheme);
+
+// Theme switch event
+document.getElementById("themeSwitch").addEventListener("change", function () {
+  const theme = this.checked ? "dark" : "light";
+  localStorage.setItem("theme", theme);
+  applyTheme(theme);
+});

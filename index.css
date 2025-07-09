@@ -1,11 +1,29 @@
 body {
-      background-color: #1e1e2f;
-      color: #f0f0f0;
-    }
-    .tag {
-      font-size: 0.85rem;
-      opacity: 0.7;
-    }
-    .xp-status {
-      margin-top: 2rem;
-    }
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.app-title {
+  font-size: 2.5rem;
+  font-weight: 800; /* Was 600 — now bolder */
+  letter-spacing: -0.5px;
+  margin-top: 1.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+/* Override Bootstrap background + text colors if needed */
+body.bg-dark {
+  background-color: #121212 !important;
+  color: #f8f9fa !important;
+}
+
+body.bg-light {
+  background-color: #ffffff !important;
+  color: #212529 !important;
+}
