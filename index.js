@@ -1,104 +1,147 @@
-let games = JSON.parse(localStorage.getItem('games') || '[]');
-let lastPlayed = localStorage.getItem('lastPlayed') || null;
-let xp = parseInt(localStorage.getItem('xp') || '0');
+let games = [];
+let lastPickedIndex = -1;
 
-function saveGames() {
-localStorage.setItem('games', JSON.stringify(games));
-}
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("addGameForm").addEventListener("submit", function (e) {
+    e.preventDefault();
 
-function addGame() {
-const name = document.getElementById('gameName').value.trim();
-const type = document.getElementById('gameType').value;
-if (!name) return;
-games.push({ name, type });
-saveGames();
-renderGameList();
-document.getElementById('gameName').value = '';
-}
+    const title = document.getElementById("gameTitle").value.trim();
+    const platform = document.getElementById("gamePlatform").value.trim();
+    const mode = document.getElementById("gameMode").value;
+    const time = parseInt(document.getElementById("gameTime").value) || 0;
 
-function renderGameList() {
-const list = document.getElementById('gameList');
-list.innerHTML = '';
-games.forEach((game, i) => {
-const item = document.createElement('div');
-item.className = 'list-group-item d-flex justify-content-between align-items-center bg-dark text-light';
-item.innerHTML = `
-<div>
-${game.name} <span class="tag">(${game.type})</span>
-</div>
-<button class="btn btn-sm btn-danger" onclick="removeGame(${i})">❌</button>
-`;
-list.appendChild(item);
+    if (title) {
+      games.push({ title, platform, mode, time });
+      saveGames();
+      this.reset();
+      renderGames();
+    }
+  });
+
+  document.getElementById("excludeLast").checked = false;
+  document.getElementById("onlySP").checked = false;
+  document.getElementById("onlyMP").checked = false;
+
+  renderGames();
 });
+
+function renderGames() {
+  const list = document.getElementById("gameList");
+  list.innerHTML = "";
+
+  games.forEach((game, index) => {
+    const li = document.createElement("li");
+    li.className = "list-group-item";
+
+    li.innerHTML = `
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-start gap-2">
+        <div class="flex-fill" id="gameDisplay-${index}">
+          <strong>${game.title}</strong> (${game.platform}) — <em>${game.mode}</em><br />
+          <small>Time played: ${game.time} hrs</small>
+        </div>
+
+        <div class="btn-group mt-2 mt-md-0">
+          <button class="btn btn-sm btn-outline-secondary" onclick="editGame(${index})">✏️</button>
+          <button class="btn btn-sm btn-danger" onclick="deleteGame(${index})">🗑</button>
+        </div>
+      </div>
+    `;
+
+    list.appendChild(li);
+  });
 }
 
-function removeGame(index) {
-games.splice(index, 1);
-saveGames();
-renderGameList();
+function editGame(index) {
+  const game = games[index];
+  const container = document.getElementById(`gameDisplay-${index}`);
+
+  container.innerHTML = `
+    <input type="text" class="form-control form-control-sm mb-1" id="editTitle-${index}" value="${game.title}" disabled />
+    <input type="text" class="form-control form-control-sm mb-1" id="editPlatform-${index}" value="${game.platform}" />
+    <select class="form-select form-select-sm mb-1" id="editMode-${index}">
+      <option value="Singleplayer" ${game.mode === "Singleplayer" ? "selected" : ""}>Singleplayer</option>
+      <option value="Multiplayer" ${game.mode === "Multiplayer" ? "selected" : ""}>Multiplayer</option>
+    </select>
+    <input type="number" min="0" class="form-control form-control-sm mb-1" id="editTime-${index}" value="${game.time}" />
+
+    <div class="btn-group mt-1">
+      <button class="btn btn-sm btn-success" onclick="saveGame(${index})">✅</button>
+      <button class="btn btn-sm btn-secondary" onclick="renderGames()">❌</button>
+    </div>
+  `;
 }
 
-function gainXP(amount) {
-xp += amount;
-localStorage.setItem('xp', xp);
-updateXPDisplay();
+function saveGame(index) {
+  const platform = document.getElementById(`editPlatform-${index}`).value.trim();
+  const mode = document.getElementById(`editMode-${index}`).value;
+  const time = parseInt(document.getElementById(`editTime-${index}`).value) || 0;
+
+  games[index].platform = platform;
+  games[index].mode = mode;
+  games[index].time = time;
+  saveGames();
+
+  renderGames();
 }
 
-function updateXPDisplay() {
-const level = Math.floor(xp / 100) + 1;
-document.getElementById('xpStatus').innerText = `XP: ${xp} | Level: ${level}`;
+function deleteGame(index) {
+  games.splice(index, 1);
+  saveGames();
+  renderGames();
 }
 
 function pickGame() {
-const exclude = document.getElementById('excludeLast').checked;
-const onlySP = document.getElementById('onlySP').checked;
-const onlyMP = document.getElementById('onlyMP').checked;
+  const filtered = filterGames();
+  if (filtered.length === 0) {
+    document.getElementById("pickedGame").innerText = "No games match the selected filters.";
+    return;
+  }
 
-let filtered = games.filter(g => {
-if (exclude && g.name === lastPlayed) return false;
-if (onlySP && g.type !== 'singleplayer') return false;
-if (onlyMP && g.type !== 'multiplayer') return false;
-return true;
-});
+  let newIndex;
+  do {
+    newIndex = Math.floor(Math.random() * filtered.length);
+  } while (
+    document.getElementById("excludeLast").checked &&
+    filtered.length > 1 &&
+    games.indexOf(filtered[newIndex]) === lastPickedIndex
+  );
 
-const output = document.getElementById('pickedGame');
-
-if (filtered.length === 0) {
-output.innerText = 'No valid game found.';
-return;
-}
-
-const pick = filtered[Math.floor(Math.random() * filtered.length)];
-lastPlayed = pick.name;
-localStorage.setItem('lastPlayed', lastPlayed);
-output.innerText = `Play: ${pick.name}`;
-gainXP(10);
+  const picked = filtered[newIndex];
+  lastPickedIndex = games.indexOf(picked);
+  document.getElementById("pickedGame").innerText = `🎮 ${picked.title} (${picked.platform}) — ${picked.mode}`;
 }
 
 function pickTwoGames() {
-const exclude = document.getElementById('excludeLast').checked;
-const onlySP = document.getElementById('onlySP').checked;
-const onlyMP = document.getElementById('onlyMP').checked;
+  const filtered = filterGames();
+  if (filtered.length === 0) {
+    document.getElementById("pickedGame").innerText = "No games match the selected filters.";
+    return;
+  }
 
-let filtered = games.filter(g => {
-if (exclude && g.name === lastPlayed) return false;
-if (onlySP && g.type !== 'singleplayer') return false;
-if (onlyMP && g.type !== 'multiplayer') return false;
-return true;
-});
+  let options = [...filtered];
+  if (document.getElementById("excludeLast").checked && filtered.length > 1) {
+    options = options.filter((g) => games.indexOf(g) !== lastPickedIndex);
+  }
 
-const output = document.getElementById('pickedGame');
+  const picks = [];
+  while (picks.length < 2 && options.length > 0) {
+    const randIndex = Math.floor(Math.random() * options.length);
+    picks.push(options[randIndex]);
+    options.splice(randIndex, 1);
+  }
 
-if (filtered.length < 2) {
-output.innerText = 'Not enough games to suggest two.';
-return;
+  document.getElementById("pickedGame").innerText = picks
+    .map((g) => `🎮 ${g.title} (${g.platform}) — ${g.mode}`)
+    .join("\n");
 }
 
-filtered = filtered.sort(() => 0.5 - Math.random());
-const picks = filtered.slice(0, 2);
-output.innerText = `Options: ${picks[0].name} OR ${picks[1].name}`;
-gainXP(5);
-}
+function filterGames() {
+  const onlySP = document.getElementById("onlySP").checked;
+  const onlyMP = document.getElementById("onlyMP").checked;
 
-renderGameList();
-updateXPDisplay();
+  return games.filter((g) => {
+    if (onlySP && g.mode !== "Singleplayer") return false;
+    if (onlyMP && g.mode !== "Multiplayer") return false;
+    return true;
+  });
+}
