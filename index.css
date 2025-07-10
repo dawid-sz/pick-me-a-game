@@ -2,14 +2,27 @@ body {
   transition: background-color 0.3s, color 0.3s;
 }
 
+.app-title-wrapper {
+  margin-top: 2rem;
+}
+
 .app-title {
-  font-size: 3.5rem;          /* Bigger font */
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  margin-bottom: 3.5rem;      /* More space below */
-  text-align: center;
-  text-decoration: underline;
   font-family: 'Montserrat', sans-serif;
+  font-size: 5rem;
+  font-weight: 800;
+  margin-bottom: 0.3rem;
+  text-decoration: underline;
+}
+
+.app-subtitle {
+  font-size: 1.2rem;
+  font-weight: 400;
+  max-width: 600px;
+  color: rgb(108, 108, 108);
+}
+
+body.bg-dark .app-subtitle {
+  color: #f3f3f3;
 }
 
 @media (max-width: 576px) {
