@@ -3,15 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Game Picker</title>
+  <title>Pick Me a Game</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
   <link href="index.css" rel="stylesheet">
+  <link href="header.css" rel="stylesheet">
+  <link href="footer.css" rel="stylesheet">
+
+
 </head>
 <body class="bg-light">
-  <div class="container py-5">
-    <!-- <h1 class="mb-4 text-center">🎮 Pick Me A Game</h1> -->
-    <h1 class="app-title">🎮 Pick Me a Game</h1>
+
+  <header id="pageHeader" class="header-image">
+    <div class="overlay"></div>
+  </header>
+  <h1 class="app-title">🎮 Pick Me a Game</h1>
+
+  <div class="container-lg my-5" style="max-width: 950px;">
 
     <!-- theme toggle -->
 
@@ -23,87 +31,120 @@
 
 
     <!-- Game Add Form -->
-    <form id="addGameForm" class="row g-3 mb-4">
-      <div class="col-md-4">
-        <input type="text" class="form-control" id="gameTitle" placeholder="Game Title" required />
-      </div>
-      <div class="col-md-3">
-        <select class="form-select" id="gamePlatform">
-          <option value="" disabled selected>Select Platform</option>
-          <option>PC</option>
-          <option>PS5</option>
-          <option>PS4</option>
-          <option>PS3</option>
-          <option>PS2</option>
-          <option>PS1</option>
-          <option>Xbox Series X</option>
-          <option>Xbox Series S</option>
-          <option>Xbox One</option>
-          <option>Xbox 360</option>
-          <option>Nintendo Switch</option>
-          <option>Nintendo Switch 2</option>
-          <option>Wii U</option>
-          <option>Wii</option>
-          <option>Steam Deck</option>
-          <option>Other</option>
-        </select>
-      </div>
-      <div class="col-md-2">
-        <select class="form-select" id="gameMode">
-          <option value="Singleplayer">Singleplayer</option>
-          <option value="Multiplayer">Multiplayer</option>
-        </select>
-      </div>
-      <div class="col-md-2">
-        <input type="number" class="form-control" id="gameTime" min="0" placeholder="Hours played" />
-      </div>
-      <div class="col-md-1 d-grid">
-        <button type="submit" class="btn btn-success">Add</button>
-      </div>
-    </form>
+    <section class="mb-5" id="addGameSection">
+      <h5 class="mb-3 add-game-toggle" toggle-title" id="toggleAddGame" style="cursor: pointer;">
+        <span class="toggle-icon">➕</span> Add Your Game</h4>
+      <form id="addGameForm" class="row g-3 mb-4">
+        <div class="col-md-4">
+          <input type="text" class="form-control" id="gameTitle" placeholder="Game Title" required />
+        </div>
+        <div class="col-md-3">
+          <select class="form-select" id="gamePlatform">
+            <option value="" disabled selected>Select Platform</option>
+            <option>PC</option>
+            <option>PS5</option>
+            <option>PS4</option>
+            <option>PS3</option>
+            <option>PS2</option>
+            <option>PS1</option>
+            <option>Xbox Series X</option>
+            <option>Xbox Series S</option>
+            <option>Xbox One</option>
+            <option>Xbox 360</option>
+            <option>Nintendo Switch</option>
+            <option>Nintendo Switch 2</option>
+            <option>Wii U</option>
+            <option>Wii</option>
+            <option>Steam Deck</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <select class="form-select" id="gameMode">
+            <option value="Singleplayer">Singleplayer</option>
+            <option value="Multiplayer">Multiplayer</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <input type="number" class="form-control" id="gameTime" min="0" placeholder="Hours played" />
+        </div>
+        <div class="col-md-1 d-grid">
+          <button type="submit" class="btn btn-success">Add</button>
+        </div>
+      </form>
+    </section>
 
     <!-- Pick Game Controls -->
-    <div class="d-grid gap-2 mb-3">
-      <button class="btn btn-primary" onclick="pickGame()">🎲 Pick a Game</button>
-      <button class="btn btn-secondary" onclick="pickTwoGames()">🎲 Suggest 2 Options</button>
-    </div>
+    <section class="mb-5">
+      <h4 class="mb-3">🎯 Pick a Game!</h4>
+      <div class="row g-2 mb-3">
+        <div class="col-12 col-md-6 d-grid">
+          <button class="btn btn-primary" onclick="pickGame()">🎲 Pick a Game</button>
+        </div>
+        <div class="col-12 col-md-6 d-grid">
+          <button class="btn btn-secondary" onclick="pickTwoGames()">🎲 Suggest 2 Options</button>
+        </div>
+      </div>
 
     <!-- Filters -->
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="checkbox" id="excludeLast" />
-      <label class="form-check-label" for="excludeLast">Exclude last played</label>
-    </div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="checkbox" id="onlySP" />
-      <label class="form-check-label" for="onlySP">Only Singleplayer</label>
-    </div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="checkbox" id="onlyMP" />
-      <label class="form-check-label" for="onlyMP">Only Multiplayer</label>
-    </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="excludeLast" />
+        <label class="form-check-label" for="excludeLast">Exclude last played</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="onlySP" />
+        <label class="form-check-label" for="onlySP">Only Singleplayer</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="onlyMP" />
+        <label class="form-check-label" for="onlyMP">Only Multiplayer</label>
+      </div>
+
 
     <!-- Picked Game Result -->
     <div class="mt-4">
       <h4>🕹️ Picked Game:</h4>
       <pre id="pickedGame" class="bg-white p-3 border rounded" style="min-height: 60px;"></pre>
     </div>
+    </section>
+
+
+    <!-- Game List -->
+    <section class="mb-5">
+      <div class="mt-4">
+        <h4>Your Games List:</h4>
+        <ul class="list-group bg-white p-3 border rounded" style="min-height: 60px;" id="gameList"></ul>
+      </div>
+    </section>
 
     <!-- Import / Export Games List -->
 
     <div class="mt-3 mb-5">
+      <h5>📁 Manage Your List</h5>
       <button class="btn btn-outline-primary me-2" id="exportBtn">⬇️ Export List</button>
       <input type="file" id="importFile" accept=".json" style="display:none" />
       <button class="btn btn-outline-secondary" id="importBtn">⬆️ Import List</button>
     </div>
 
-    <!-- Game List -->
+    <!-- Completed Games List Section -->
     <div class="mt-4">
-      <h4>Your Games List:</h4>
-      <ul class="list-group" id="gameList"></ul>
+        <h5>✅ Completed Games:</h5>
+        <ul class="list-group bg-white p-3 border rounded" style="min-height: 60px;" id="finishedGameList"></ul>
     </div>
+
   </div>
+
+  <footer class="footer-image d-flex align-items-end justify-content-center">
+    <div>
+      <small>Built with ❤️ by Dawid for Gamers — 2025</small>
+    </div>
+  </footer>
+
 
   <script src="index.js" defer></script>
   <script src="export_import.js" defer></script>
+  <script src="completed_games.js" defer></script>
+  <script src="addyourgame_toggle.js" defer></script>
+
 </body>
 </html>

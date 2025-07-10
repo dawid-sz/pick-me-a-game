@@ -1,0 +1,32 @@
+.footer-image {
+  position: relative;
+  height: 200px;
+  background: 
+    linear-gradient(
+      to bottom,
+      var(--footer-gradient-start),
+      transparent 100%
+    ),
+    url('background_footer.jpg') center/cover no-repeat;
+  color: white;
+  overflow: hidden;
+}
+
+
+/* Light mode gradient start (match page background) */
+body.bg-light .footer-image {
+  --footer-gradient-start: #ffffff;
+  filter: none; /* reset if you had dark mode filter */
+}
+
+/* Dark mode gradient start (match dark page bg) */
+body.bg-dark .footer-image {
+  --footer-gradient-start: #121212;
+  filter: brightness(1); /* darken image */
+}
+
+@media (max-width: 576px) {
+  .footer-image {
+    height: 100px;
+  }
+}

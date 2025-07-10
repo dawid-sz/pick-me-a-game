@@ -25,6 +25,9 @@ document.addEventListener("DOMContentLoaded", () => {
   renderGames();
 });
 
+/* 
+!!!!!! this section is now handled in the completed_games.js !!!!!!
+
 function renderGames() {
   const list = document.getElementById("gameList");
   list.innerHTML = "";
@@ -49,7 +52,7 @@ function renderGames() {
 
     list.appendChild(li);
   });
-}
+} */
 
 function editGame(index) {
   const game = games[index];
@@ -81,12 +84,6 @@ function saveGame(index) {
   games[index].time = time;
   saveGames();
 
-  renderGames();
-}
-
-function deleteGame(index) {
-  games.splice(index, 1);
-  saveGames();
   renderGames();
 }
 
@@ -176,6 +173,7 @@ function deleteGame(index) {
         localStorage.setItem("skipDeleteConfirmation", "true");
       }
       games.splice(index, 1);
+      saveGames();
       renderGames();
       document.body.removeChild(confirmationWrapper);
     };
@@ -185,6 +183,7 @@ function deleteGame(index) {
     };
   } else {
     games.splice(index, 1);
+    saveGames();
     renderGames();
   }
 }
