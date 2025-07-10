@@ -15,8 +15,9 @@ Features: <br>
 
 Whether you’re trying to clear your backlog or just stop wasting time deciding what to play, this tool makes choosing fun, quick, and easy.
 
+<br>
 
-Changelog:
+<b><u><h3>Changelog:</h3></u></b>
 
 Version 1.0
 
