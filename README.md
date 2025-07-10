@@ -15,6 +15,8 @@ Features: <br>
 
 Whether you’re trying to clear your backlog or just stop wasting time deciding what to play, this tool makes choosing fun, quick, and easy.
 
+<br>
+<b>All your data stays on your device—nothing is uploaded or shared. Your privacy is 100% respected.</b>
 
 <br>
 To see all changes please check CHANGELOG.md!
