@@ -1,4 +1,4 @@
-# pick-me-a-game v1.1.0
+# pick-me-a-game v1.2.0
 
 Tired of staring at your game library, unsure what to play next?
 
