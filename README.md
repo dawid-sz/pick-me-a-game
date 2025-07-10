@@ -14,21 +14,3 @@ Features: <br>
 •	🏁 Mark games as completed, and even revert them if you change your mind <br>
 
 Whether you’re trying to clear your backlog or just stop wasting time deciding what to play, this tool makes choosing fun, quick, and easy.
-
-<br>
-
-<b><u><h3>Changelog:</h3></u></b>
-
-Version 1.0
-[09.07.2025]
-- adding save to localStorage
-- import / export to json added
-- select platform and hours played added
-
-Version 1.1.0
-[10.07.2025]
-- dark mode toggle added
-- added "completed" button to mark a game as completed and move it to another list
-- "restore" button added to move from completed back to the list
-- added a picture in the header and footer with gradient
-- add your game section is now expandable
