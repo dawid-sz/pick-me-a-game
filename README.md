@@ -1,4 +1,4 @@
-# pick-me-a-game v1.0
+# pick-me-a-game v1.1.0
 
 Tired of staring at your game library, unsure what to play next?
 
@@ -20,13 +20,13 @@ Whether you’re trying to clear your backlog or just stop wasting time deciding
 <b><u><h3>Changelog:</h3></u></b>
 
 Version 1.0
-
-09.07.2025
+[09.07.2025]
 - adding save to localStorage
 - import / export to json added
 - select platform and hours played added
 
-10.07.2025
+Version 1.1.0
+[10.07.2025]
 - dark mode toggle added
 - added "completed" button to mark a game as completed and move it to another list
 - "restore" button added to move from completed back to the list
