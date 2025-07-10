@@ -14,3 +14,7 @@ Features: <br>
 •	🏁 Mark games as completed, and even revert them if you change your mind <br>
 
 Whether you’re trying to clear your backlog or just stop wasting time deciding what to play, this tool makes choosing fun, quick, and easy.
+
+
+<br>
+To see all changes please check CHANGELOG.md!

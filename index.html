@@ -9,9 +9,9 @@
   <link href="index.css" rel="stylesheet">
   <link href="header.css" rel="stylesheet">
   <link href="footer.css" rel="stylesheet">
-
-
 </head>
+
+
 <body class="bg-light">
 
   <header id="pageHeader" class="header-image">
@@ -37,7 +37,7 @@
 
     <!-- Game Add Form -->
     <section class="mb-5" id="addGameSection">
-      <h5 class="mb-3 add-game-toggle" toggle-title" id="toggleAddGame" style="cursor: pointer;">
+      <h5 class="mb-3 add-game-toggle toggle-title" id="toggleAddGame" style="cursor: pointer;">
         <span class="toggle-icon">➕</span> Add Your Game</h4>
       <form id="addGameForm" class="row g-3 mb-4">
         <div class="col-md-4">
@@ -76,6 +76,14 @@
         <div class="col-md-1 d-grid">
           <button type="submit" class="btn btn-success">Add</button>
         </div>
+        <div class="col-12 col-md-6 mt-2">
+          <label for="gameCover" class="form-label mb-1">Game Cover Image (optional):</label>
+          <input type="file"
+                 id="gameCover"
+                 accept="image/*"
+                 class="form-control"
+                 title="Upload a cover image for this game (JPG, PNG, etc.)" />
+        </div>
       </form>
     </section>
 
@@ -110,15 +118,21 @@
     <div class="mt-4">
       <h4>🕹️ Picked Game:</h4>
       <pre id="pickedGame" class="bg-white p-3 border rounded" style="min-height: 60px;"></pre>
+      <div class="d-flex gap-2 mb-2">
+        <button class="btn btn-outline-secondary btn-xs" onclick="copyPickedGameSummary()">Copy picked game</button>
+        <button class="btn btn-outline-secondary btn-xs" onclick="sharePickedGameImage()">Save picked game as image</button>
+      </div>
     </div>
-    </section>
-
 
     <!-- Game List -->
     <section class="mb-5">
       <div class="mt-4">
-        <h4>Your Games List:</h4>
+        <h4>📄 Your Games List:</h4>
         <ul class="list-group bg-white p-3 border rounded" style="min-height: 60px;" id="gameList"></ul>
+        <div class="d-flex gap-2 mt-3">
+          <button class="btn btn-outline-secondary btn-xs" onclick="copyGameListSummary()">Copy game list</button>
+          <button class="btn btn-outline-secondary btn-xs" onclick="shareGameListImage()">Save game list as image</button>
+        </div>
       </div>
     </section>
 
@@ -132,9 +146,30 @@
     </div>
 
     <!-- Completed Games List Section -->
-    <div class="mt-4">
-        <h5>✅ Completed Games:</h5>
-        <ul class="list-group bg-white p-3 border rounded" style="min-height: 60px;" id="finishedGameList"></ul>
+    <div class="mt-4 mb-5">
+      <h5>✅ Completed Games:</h5>
+      <ul class="list-group bg-white p-3 border rounded" style="min-height: 60px;" id="finishedGameList"></ul>
+      <div class="d-flex gap-2 mt-3">
+        <button class="btn btn-outline-secondary btn-xs" style="font-size:0.95rem;" onclick="copyCompletedListSummary()">Copy completed list</button>
+        <button class="btn btn-outline-secondary btn-xs" style="font-size:0.95rem;" onclick="shareCompletedListImage()">Save as image</button>
+      </div>
+    </div>
+
+    <!-- stats box -->
+    <div class="mt-3">
+      <h5>🏆 Your Stats:</h5>
+      <div id="statsBox" class="mb-4 p-3 border rounded"></div>
+    </div>
+
+
+    <!-- backup / restore whole APP -->
+    <div class="mt-5 mb-4">
+      <h5>🗄️ Backup & Restore</h5>
+      <div class="d-flex gap-2 mb-2">
+        <button class="btn btn-outline-primary btn-xs" title="Export whole App" onclick="exportAppState()">⬇️ Export Backup</button>
+        <input type="file" id="importBackupFile" accept=".json" style="display:none" />
+        <button class="btn btn-outline-secondary btn-xs" title="Import your App" onclick="document.getElementById('importBackupFile').click()">⬆️ Import Backup</button>
+      </div>
     </div>
 
   </div>
@@ -144,12 +179,12 @@
       <small>Built with ❤️ by Dawid for Gamers — 2025</small>
     </div>
   </footer>
-
-
+  
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script src="index.js" defer></script>
   <script src="export_import.js" defer></script>
-  <script src="completed_games.js" defer></script>
   <script src="addyourgame_toggle.js" defer></script>
+  
 
 </body>
 </html>

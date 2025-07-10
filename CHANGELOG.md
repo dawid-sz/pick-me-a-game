@@ -1,15 +1,24 @@
-## v1.0.0 - Initial Release
+## [1.0.0] - 2025-07-09
+### Added
+- Save to localStorage
+- Import/export to JSON
+- Platform and hours played selection
 
-[09.07.2025]
-- adding save to localStorage
-- import / export to json added
-- select platform and hours played added
+## [1.1.0] - 2025-07-10
+### Added
+- Dark mode toggle
+- "Completed" button to move a game to a separate list
+- "Restore" button to move a game back to the main list
+- Header and footer background image with gradient
+- Expandable "Add Your Game" section
 
-
-Version 1.1.0
-[10.07.2025]
-- dark mode toggle added
-- added "completed" button to mark a game as completed and move it to another list
-- "restore" button added to move from completed back to the list
-- added a picture in the header and footer with gradient
-- add your game section is now expandable
+## [1.2.0] - 2025-07-11
+### Added
+- Adjusted the form for adding the game, to validate if all the fields are filled out
+- Small functional changes
+- Adjusted colors in dark mode
+- Completed games can now be rated and notes can be added
+- UI / UX changes
+- Function to copy picked game, games list or completed list as a text or generate an image
+- Export and import function of the whole App added
+- You can now import cover art
