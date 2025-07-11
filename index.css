@@ -2,23 +2,20 @@ body {
   transition: background-color 0.3s, color 0.3s;
 }
 
-.app-title-wrapper {
-  margin-top: 2rem;
-}
-
 .app-title {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 5rem;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 8rem;
   font-weight: 800;
-  margin-bottom: 0.3rem;
   text-decoration: underline;
 }
 
 .app-subtitle {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: 400;
   max-width: 600px;
-  color: rgb(108, 108, 108);
+  color: rgb(37, 37, 37);
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
 }
 
 body.bg-dark .app-subtitle {
@@ -27,7 +24,12 @@ body.bg-dark .app-subtitle {
 
 @media (max-width: 576px) {
   .app-title {
-    font-size: 2.2rem; /* Smaller on mobile */
+    font-size: 4.5rem; /* Smaller on mobile */
+    font-weight: bold;
+  }
+
+  .app-subtitle {
+    font-size: .7rem; /* Smaller on mobile */
   }
 }
 
@@ -189,4 +191,18 @@ body.bg-dark #pickedGame {
   border-radius: 3px;
   margin-right: 8px;
   vertical-align: middle;
+}
+
+
+.section-container {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  padding: 2rem 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid #ececec;
+}
+body.bg-dark .section-container {
+  background: #23272b;
+  border-color: #333;
 }

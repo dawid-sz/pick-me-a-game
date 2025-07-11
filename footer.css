@@ -25,8 +25,12 @@ body.bg-dark .footer-image {
   filter: brightness(1); /* darken image */
 }
 
+.footer-text {
+  font-family: 'montserrat', sans-serif;
+}
+
 @media (max-width: 576px) {
   .footer-image {
-    height: 100px;
+    height: 150px;
   }
 }

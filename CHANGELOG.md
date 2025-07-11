@@ -20,5 +20,5 @@
 - Completed games can now be rated and notes can be added
 - UI / UX changes
 - Function to copy picked game, games list or completed list as a text or generate an image
-- Export and import function of the whole App added
+- Export and import of the list replaced with export / import function for the whole App
 - You can now import cover art

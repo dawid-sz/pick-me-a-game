@@ -13,8 +13,16 @@ function saveCompletedGames() {
 
 // --- Render Active Games ---
 function renderGames() {
+  const section = document.getElementById("yourGamesSection");
   const list = document.getElementById("gameList");
   list.innerHTML = "";
+
+  if (games.length === 0) {
+    section.style.display = "none";
+    return;
+  } else {
+    section.style.display = "";
+  }
 
   games.forEach((game, index) => {
     const li = document.createElement("li");
@@ -55,8 +63,16 @@ function renderGames() {
 
 // --- Render Completed Games ---
 function renderCompletedGames() {
+  const section = document.getElementById("completedGamesSection");
   const list = document.getElementById("finishedGameList");
   list.innerHTML = "";
+
+  if (completedGames.length === 0) {
+    section.style.display = "none";
+    return;
+  } else {
+    section.style.display = "";
+  }
 
   completedGames.forEach((game, index) => {
     const li = document.createElement("li");
@@ -171,6 +187,7 @@ function markCompleted(index) {
   saveCompletedGames();
   renderGames();
   renderCompletedGames();
+  renderStats();
 }
 
 function unmarkCompleted(index) {
@@ -186,6 +203,7 @@ function unmarkCompleted(index) {
     saveCompletedGames();
     renderGames();
     renderCompletedGames();
+    renderStats();
   }
 }
 
@@ -282,6 +300,16 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       addGame({ cover: "" });
     }
+
+    // Reset the form fields
+    e.target.reset();
+
+    // Optionally, reset custom selects if needed
+    document.getElementById('gamePlatform').selectedIndex = 0;
+    document.getElementById('gameMode').selectedIndex = 0;
+
+    // Show confirmation (see below)
+    showGameAddedConfirmation();
   });
 
   document.getElementById("excludeLast").checked = false;
@@ -474,3 +502,11 @@ document.getElementById('importBackupFile').addEventListener('change', function(
 
 // Call renderStats() after every change:
 renderStats();
+
+function showGameAddedConfirmation() {
+  const alert = document.getElementById('gameAddedAlert');
+  alert.classList.remove('d-none');
+  setTimeout(() => {
+    alert.classList.add('d-none');
+  }, 2000);
+}
