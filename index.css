@@ -24,12 +24,21 @@ body.bg-dark .app-subtitle {
 
 @media (max-width: 576px) {
   .app-title {
-    font-size: 4.5rem; /* Smaller on mobile */
-    font-weight: bold;
+    font-size: 17vw; /* Smaller on mobile */
   }
 
   .app-subtitle {
     font-size: .7rem; /* Smaller on mobile */
+  }
+}
+
+@media (max-width: 400px) {
+  .app-title {
+    font-size: 16vw;
+  }
+
+  .app-subtitle {
+    font-size: 3vw;
   }
 }
 
@@ -100,6 +109,13 @@ h4, h5 {
   cursor: pointer;
   transition: background-color 0.3s ease;
   user-select: none;
+}
+
+@media (max-width: 576px) {
+  .add-game-toggle {
+    font-size: 1rem;
+    padding: 0.35rem 0.7rem;
+  }
 }
 
 .add-game-toggle:hover {
