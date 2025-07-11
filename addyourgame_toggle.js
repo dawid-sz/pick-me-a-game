@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const section = document.getElementById('addGameSection');
-  const toggleTitle = document.getElementById('toggleAddGame');
+  const toggleBtn = document.getElementById('toggleAddGame');
   const addGameForm = document.getElementById('addGameForm');
 
   // Always start collapsed
@@ -8,7 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
   section.classList.remove('expanded');
 
   // Toggle on title click
-  toggleTitle.addEventListener('click', () => {
+  toggleBtn.addEventListener('click', () => {
+    toggleBtn.classList.toggle('open');
     if (section.classList.contains('collapsed')) {
       section.classList.remove('collapsed');
       section.classList.add('expanded');

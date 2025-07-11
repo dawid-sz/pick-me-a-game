@@ -21,4 +21,16 @@
 - UI / UX changes
 - Function to copy picked game, games list or completed list as a text or generate an image
 - Export and import of the list replaced with export / import function for the whole App
-- You can now import cover art
+- You can now import cover art in add your game
+
+## [1.3.0] - 2025-07-12
+### Added
+- You can now also import cover art in games list section
+- Pop up with a chime added after marking a game as completed
+- Greeting banner added
+- Achievements system added
+- UI/UX adjustments
+- Added over 200 quotes, tips, fun facts all together
+- Added over 100 greetings
+- Backup / Restore now includes achievements
+- Achievements counter added to "Your Stats" section
