@@ -14,7 +14,7 @@ body.bg-dark .header-image {
 .header-image {
   position: relative;
   height: 300px;
-  background-image: url('background-elden.jpg');
+  background-image: url('/src/img/background-elden.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -58,7 +58,7 @@ body.bg-light .header-image .app-title-wrapper {
 
 @media (max-width: 576px) {
   .header-image {
-    height: 200px; /* smaller height on small screens */
+    height: 150px; /* smaller height on small screens */
   }
 
   .header-image .app-title-wrapper {

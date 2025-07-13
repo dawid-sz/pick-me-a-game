@@ -1,0 +1,72 @@
+/* Main Navbar */
+.main-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 56px;
+  background: linear-gradient(90deg, #5f4b8b 0%, #2e3192 100%);
+  color: #fff;
+  z-index: 1100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  transition: background 0.3s;
+}
+body.bg-light .main-navbar {
+  background: linear-gradient(90deg, #6d539f 0%, #334982 100%);
+  color: #222;
+}
+body.bg-light .main-navbar,
+body.bg-light .main-navbar .profile-display,
+body.bg-light .main-navbar .theme-toggle {
+  color: #222;
+}
+.profile-display {
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  border-radius: 0;
+}
+.profile-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #222;
+  margin-right: 8px;
+  border: 2px solid #fff;
+}
+.profile-nickname {
+  font-weight: 600;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#editProfileBtn {
+  color: inherit;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+#editProfileBtn:hover {
+  opacity: 1;
+}
+.theme-toggle {
+  margin-bottom: 0 !important;
+}
+@media (max-width: 600px) {
+  .main-navbar {
+    height: 48px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .profile-avatar {
+    width: 32px;
+    height: 32px;
+  }
+}
+body {
+  padding-top: 56px; /* To prevent content from hiding under navbar */
+}
+@media (max-width: 600px) {
+  body { padding-top: 48px; }
+}

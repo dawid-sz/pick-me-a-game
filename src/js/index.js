@@ -267,28 +267,43 @@ function deleteGame(index) {
 
 function markCompleted(index) {
   const game = games[index];
-  const rating = prompt(
-    `How would you rate "${game.title}"?\nEnter a number from 1 (worst) to 5 (best):`
-  );
-  if (rating === null) return;
-  const ratingNum = Math.max(1, Math.min(5, parseInt(rating, 10))) || 1;
+  const modal = document.getElementById('completeModal');
+  const ratingInput = document.getElementById('completeRating');
+  const notesInput = document.getElementById('completeNotes');
+  const confirmBtn = document.getElementById('confirmCompleteBtn');
+  const cancelBtn = document.getElementById('cancelCompleteBtn');
 
-  const notes = prompt(`Any notes for "${game.title}"? (optional)`, "");
-  completedGames.push({
-    ...game,
-    rating: ratingNum,
-    notes: notes ? notes.trim() : "",
-    completedAt: Date.now() // <-- Add this line!
-  });
-  games.splice(index, 1);
-  saveGames();
-  saveCompletedGames();
-  renderGames();
-  renderCompletedGames();
-  renderStats();
-  showAchievementPopup();
+  // Reset fields
+  ratingInput.value = "5";
+  notesInput.value = "";
 
-  checkAchievements(buildAppState()); // <-- Add this line!
+  modal.classList.remove('d-none');
+
+  // Confirm handler
+  confirmBtn.onclick = () => {
+    const ratingNum = parseInt(ratingInput.value, 10);
+    const notes = notesInput.value.trim();
+    completedGames.push({
+      ...game,
+      rating: ratingNum,
+      notes,
+      completedAt: Date.now()
+    });
+    games.splice(index, 1);
+    saveGames();
+    saveCompletedGames();
+    renderGames();
+    renderCompletedGames();
+    renderStats();
+    showAchievementPopup();
+    checkAchievements(buildAppState());
+    modal.classList.add('d-none');
+  };
+
+  // Cancel handler
+  cancelBtn.onclick = () => {
+    modal.classList.add('d-none');
+  };
 }
 
 function unmarkCompleted(index) {
@@ -365,19 +380,46 @@ function pickTwoGames() {
     showRandomMessage();
 }
 
-// --- Theme ---
+// --- Theme Dark / Light Mode ---
 function applyTheme(theme) {
   const body = document.body;
   if (theme === "dark") {
     body.classList.remove("bg-light", "text-dark");
     body.classList.add("bg-dark", "text-light");
-    document.getElementById("themeSwitch").checked = true;
+    themeSwitch.checked = true;
+    updateThemeIcon(true);
   } else {
     body.classList.remove("bg-dark", "text-light");
     body.classList.add("bg-light", "text-dark");
-    document.getElementById("themeSwitch").checked = false;
+    themeSwitch.checked = false;
+    updateThemeIcon(false);
+  }
+  localStorage.setItem("theme", theme);
+}
+
+const themeSwitch = document.getElementById('themeSwitch');
+const themeIcon = document.getElementById('themeIcon');
+
+function updateThemeIcon(isDark) {
+  if (isDark) {
+    themeIcon.classList.remove('bi-sun');
+    themeIcon.classList.add('bi-moon');
+  } else {
+    themeIcon.classList.remove('bi-moon');
+    themeIcon.classList.add('bi-sun');
   }
 }
+
+themeSwitch.addEventListener('change', function() {
+  updateThemeIcon(themeSwitch.checked);
+});
+
+// On load, set correct icon
+document.addEventListener('DOMContentLoaded', function() {
+  updateThemeIcon(themeSwitch.checked);
+});
+
+// -----------------------
 
 // --- Init ---
 document.addEventListener("DOMContentLoaded", () => {
@@ -822,7 +864,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-
 // show random quote/tip/fact on picking a game
 const gamingMessages = [
   "“It's dangerous to go alone! Take this.” – The Legend of Zelda",
@@ -1050,4 +1091,12 @@ function showRandomMessage() {
     msgBox.classList.remove('show');
     setTimeout(() => msgBox.classList.add('d-none'), 500);
   }, 6000); // 6 seconds
+}
+
+
+// mobile full screen PWA
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('service-worker.js');
+  });
 }

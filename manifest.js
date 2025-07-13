@@ -1,0 +1,21 @@
+{
+  "name"; "Pick Me a Game",
+  "short_name"; "PickMeAGame",
+  "start_url"; ".",
+  "display"; "standalone",
+  "background_color"; "#181f1b",
+  "theme_color"; "#090b15",
+  "description"; "Get help picking your next game to play!",
+  "icons"; [
+    {
+      "src": "/favicon_io/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon_io/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

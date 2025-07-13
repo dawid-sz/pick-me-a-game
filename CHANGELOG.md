@@ -34,3 +34,12 @@
 - Added over 100 greetings
 - Backup / Restore now includes achievements
 - Achievements counter added to "Your Stats" section
+
+## [1.4.0] - 2025-07-13
+### Added
+- Designed custom pop-out instead of the generic one
+- Now you can Add the WebApp to your home screen (works on iOS) and launch it in full screen mode
+- Changed folder structure in the project
+- You can now set your own Nickname and upload your image
+- UX/UI changes
+- fixed small bugs
