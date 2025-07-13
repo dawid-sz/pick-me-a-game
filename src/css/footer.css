@@ -7,7 +7,7 @@
       var(--footer-gradient-start),
       transparent 100%
     ),
-    url('/src/img/background_footer.jpg') center/cover no-repeat;
+    url('../img/background_footer.jpg') center/cover no-repeat;
   color: white;
   overflow: hidden;
 }
