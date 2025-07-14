@@ -1,6 +1,6 @@
 /* Main Navbar */
 .main-navbar {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100vw;
@@ -69,4 +69,18 @@ body {
 }
 @media (max-width: 600px) {
   body { padding-top: 48px; }
+}
+
+.avatar-choice {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  object-fit: cover;
+  transition: border 0.2s;
+}
+.avatar-choice.selected {
+  border: 2px solid #5f4b8b;
+  box-shadow: 0 0 0 2px #fff;
 }

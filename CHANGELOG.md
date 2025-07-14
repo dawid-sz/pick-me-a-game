@@ -37,9 +37,16 @@
 
 ## [1.4.0] - 2025-07-13
 ### Added
-- Designed custom pop-out instead of the generic one
+- Designed custom pop-out's instead of the generic one
 - Now you can Add the WebApp to your home screen (works on iOS) and launch it in full screen mode
 - Changed folder structure in the project
 - You can now set your own Nickname and upload your image
 - UX/UI changes
-- fixed small bugs
+- Fixed small bugs
+
+## [1.5.0] - 2025-07-14
+### Added
+- You can now setup your profile with avatar (choose from 4 or upload own one) and a nickname
+- Fixed some small bugs
+- UX/UI adjustments
+- Privacy and License documents added

@@ -352,6 +352,8 @@ function pickGame() {
   lastPickedIndex = games.indexOf(picked);
   document.getElementById("pickedGame").innerText = `🎮 ${picked.title} (${picked.platform}) — ${picked.mode}`;
 
+  document.getElementById('pickedGameWrapper').classList.remove('d-none');
+
   window._picked = true;
   checkAchievements(buildAppState());
   window._picked = false;
@@ -377,6 +379,7 @@ function pickTwoGames() {
   document.getElementById("pickedGame").innerText = picks
     .map((g) => `🎮 ${g.title} (${g.platform}) — ${g.mode}`)
     .join("\n");
+    document.getElementById('pickedGameWrapper').classList.remove('d-none');
     showRandomMessage();
 }
 
@@ -624,6 +627,8 @@ function getAppState() {
     skipDeleteConfirmation: localStorage.getItem('skipDeleteConfirmation') === "true",
     unlockedAchievements: JSON.parse(localStorage.getItem('unlockedAchievements') || '[]'),
     daysUsed: JSON.parse(localStorage.getItem('daysUsed') || '[]'),
+    pmag_nickname: localStorage.getItem('pmag_nickname') || '',
+    pmag_avatar: localStorage.getItem('pmag_avatar') || '',
     // Add more fields here as you add features
   };
 }
@@ -641,6 +646,13 @@ function setAppState(state) {
   }
   if (state.daysUsed) {
     localStorage.setItem('daysUsed', JSON.stringify(state.daysUsed));
+  }
+  // Restore avatar and nickname
+  if (typeof state.pmag_nickname === "string") {
+    localStorage.setItem('pmag_nickname', state.pmag_nickname);
+  }
+  if (typeof state.pmag_avatar === "string") {
+    localStorage.setItem('pmag_avatar', state.pmag_avatar);
   }
   // Add more fields here as you add features
   saveGames();
