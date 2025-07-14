@@ -435,6 +435,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("addGameForm").addEventListener("submit", function (e) {
     e.preventDefault();
+
     const title = document.getElementById("gameTitle").value.trim();
     const platform = document.getElementById("gamePlatform").value.trim();
     const mode = document.getElementById("gameMode").value;
@@ -447,25 +448,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const fileInput = document.getElementById('gameCover');
     const file = fileInput.files[0];
+
+    // Helper to actually add the game and reset form
+    function doAddGame(cover) {
+      addGame({
+        title,
+        platform,
+        mode,
+        time,
+        cover: cover || "",
+      });
+      e.target.reset();
+      document.getElementById('gamePlatform').selectedIndex = 0;
+      document.getElementById('gameMode').selectedIndex = 0;
+      showGameAddedConfirmation();
+    }
+
     if (file) {
       const reader = new FileReader();
       reader.onload = function(evt) {
-        addGame({ cover: evt.target.result }); // Pass base64 string
+        doAddGame(evt.target.result);
       };
       reader.readAsDataURL(file);
     } else {
-      addGame({ cover: "" });
+      doAddGame("");
     }
-
-    // Reset the form fields
-    e.target.reset();
-
-    // Optionally, reset custom selects if needed
-    document.getElementById('gamePlatform').selectedIndex = 0;
-    document.getElementById('gameMode').selectedIndex = 0;
-
-    // Show confirmation (see below)
-    showGameAddedConfirmation();
   });
 
   document.getElementById("excludeLast").checked = false;
