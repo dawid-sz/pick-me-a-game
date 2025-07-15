@@ -1,6 +1,6 @@
 /* Achievements Section */
 #achievementsSection {
-  background: #181f1b;
+  background: #23272b;
   border-radius: 16px;
   padding: 1.5rem 1rem 1rem 1rem;
   margin-bottom: 2rem;
@@ -141,4 +141,24 @@ body.bg-light #achievementsSection {
   background: #f8f9fa;
   color: #23272b;
   box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+
+.achievement-card.achievement-collapsed {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition: max-height 0.35s cubic-bezier(.4,0,.2,1), opacity 0.25s cubic-bezier(.4,0,.2,1);
+}
+.achievement-card.achievement-collapsing {
+  opacity: 0;
+  max-height: 0;
+  transition: opacity 0.2s, max-height 0.3s;
+  overflow: hidden;
+  pointer-events: none;
+}
+.achievement-card.achievement-expanded {
+  opacity: 1;
+  max-height: 90px;
+  transition: opacity 0.2s, max-height 0.3s;
 }

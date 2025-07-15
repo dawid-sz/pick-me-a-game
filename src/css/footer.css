@@ -29,8 +29,52 @@ body.bg-dark .footer-image {
   font-family: 'montserrat', sans-serif;
 }
 
+.footer-nav {
+  margin-bottom: 0.5rem;
+}
+.footer-link {
+  color: #f3f3f3;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.footer-link:hover {
+  color: #959595;
+}
+.footer-meta {
+  font-size: 0.97rem;
+  color: #f3f3f3;
+}
 @media (max-width: 576px) {
   .footer-image {
     height: 150px;
   }
+  .footer-nav {
+    font-size: 0.97rem;
+  }
+  .footer-meta {
+    font-size: 0.93rem;
+  }
+}
+
+/* Light mode: dark text */
+body.bg-light .footer-link,
+body.bg-light .footer-meta,
+body.bg-light .footer-image {
+  color: #23272b;
+}
+
+body.bg-light .footer-link {
+  color: #23272b;
+}
+
+body.bg-light .footer-link:hover {
+  color: #555;
+}
+
+/* Dark mode: keep existing light text */
+body.bg-dark .footer-link,
+body.bg-dark .footer-meta,
+body.bg-dark .footer-image {
+  color: #f3f3f3;
 }

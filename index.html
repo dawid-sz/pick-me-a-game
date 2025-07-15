@@ -9,15 +9,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-  <link href=".\src\css\index.css" rel="stylesheet">
-  <link href=".\src\css\header.css" rel="stylesheet">
-  <link href=".\src\css\footer.css" rel="stylesheet">
-  <link href=".\src\css\achievements.css" rel="stylesheet">
-  <link href=".\src\css\navbar.css" rel="stylesheet">
-  <link rel="apple-touch-icon" sizes="180x180" href=".\favicon_io\apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href=".\favicon_io\favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href=".\favicon_io\favicon-16x16.png">
-  <link rel="manifest" href=".\favicon_io\site.webmanifest">
+  <link href="/src/css/index.css" rel="stylesheet">
+  <link href="/src/css/header.css" rel="stylesheet">
+  <link href="/src/css/footer.css" rel="stylesheet">
+  <link href="/src/css/achievements.css" rel="stylesheet">
+  <link href="/src/css/navbar.css" rel="stylesheet">
+  <link href="/src/css/game-cards.css" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="manifest" href="manifest.json">
@@ -159,14 +159,14 @@
         </div>
       
       <!-- Show random quote/tip/fact here -->
-      <div id="randomMessage" class="d-none mt-2" style="transition: opacity 0.5s;"></div>
+      <div id="randomMessage" class="d-none mt-4" style="transition: opacity 0.5s;"></div>
     </div>
   </div>
 
     <!-- Game List -->
     <div id="yourGamesSection" class="section-container mb-4">
       <h4>🗒️ Your Games List:</h4>
-      <ul class="list-group" style="min-height: 60px;" id="gameList"></ul>
+      <div id="gameList" class="game-grid"></div>
       <div class="d-flex gap-2 mt-3">
         <button class="btn btn-outline-secondary btn-xs" onclick="copyGameListSummary()">Copy list</button>
         <button class="btn btn-outline-secondary btn-xs" onclick="shareGameListImage()">Save as image</button>
@@ -176,7 +176,7 @@
     <!-- Completed Games List Section -->
     <div id="completedGamesSection" class="section-container mb-4" style="display:none;">
       <h4>✅ Completed Games:</h4>
-      <ul class="list-group" style="min-height: 60px;" id="finishedGameList"></ul>
+      <div id="finishedGameList" class="game-grid"></div>
       <div class="d-flex gap-2 mt-3">
         <button class="btn btn-outline-secondary btn-xs" style="font-size:0.95rem;" onclick="copyCompletedListSummary()">Copy list</button>
         <button class="btn btn-outline-secondary btn-xs" style="font-size:0.95rem;" onclick="shareCompletedListImage()">Save as image</button>
@@ -205,19 +205,18 @@
 
   </div>
 
-<footer class="footer-image d-flex align-items-end justify-content-center">
-  <div class="d-flex flex-column flex-md-row align-items-center gap-2">
-    <small class="footer-text">
-      Built with ❤️ by Dawid for Gamers — 2025
-    </small>
-    <small class="footer-text">
-      | v1.5.0 —
-      <a href="https://github.com/dawid-sz/pick-me-a-game/blob/main/CHANGELOG.md" target="_blank" rel="noopener" style="text-decoration: none; color: white;">changelog</a>
-      •
-      <a href="https://github.com/dawid-sz/pick-me-a-game/blob/main/LICENSE.md" target="_blank" rel="noopener" style="text-decoration: none; color: white;">license</a>
-      •
-      <a href="https://github.com/dawid-sz/pick-me-a-game/blob/main/PRIVACY.md" target="_blank" rel="noopener" style="text-decoration: none; color: white;">privacy</a>
-    </small>
+<footer class="footer-image d-flex flex-column justify-content-center align-items-center">
+  <nav class="footer-nav mb-2">
+    <a href="/src/html/about.html#about" class="footer-link me-3">About</a>
+    <a href="/src/html/about.html#contact" class="footer-link me-3">Contact</a>
+    <a href="/src/html/about.html#faq" class="footer-link me-3">FAQ</a>
+    <a href="/src/html/about.html#privacy" class="footer-link me-3">Privacy</a>
+  </nav>
+  <div class="footer-meta text-center">
+    <a href="https://github.com/dawid-sz/pick-me-a-game/blob/main/CHANGELOG.md" class="footer-link" target="_blank" rel="noopener">
+      v1.5.0
+    </a>
+    • Built with <span style="color:#e25555;">&#10084;&#65039;</span> by Gamer for Gamers — 2025
   </div>
 </footer>
 

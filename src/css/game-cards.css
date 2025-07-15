@@ -1,0 +1,229 @@
+.game-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
+  align-items: start;
+}
+@media (min-width: 700px) {
+  .game-grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+.game-card {
+  position: relative;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  padding: 1.1rem 1rem;
+  display: flex;
+  align-items: stretch;
+  min-height: 200px;
+}
+
+.game-card-inner {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.game-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.7rem;
+}
+.game-title,
+.game-meta,
+.game-time,
+.game-review,
+.game-notes {
+  background: #f7f7fa;
+  border: 2px solid #e0e0e0;
+  color: #23272b;
+  border-radius: 4px;
+  padding: 0.7em 0.5em;
+  text-align: center;
+  font-size: 1.05rem;
+  font-weight: 500;
+  word-break: break-word;
+}
+.game-title { font-size: 1.13rem; font-weight: 700; }
+.game-meta, .game-time { font-size: 1.01rem; color: #555; }
+.game-review {
+  color: #d4af37;
+  margin-bottom: 0.7rem;
+  letter-spacing: 0.1em;
+}
+.game-notes {
+  color: #23272b;
+  min-height: 80px;
+  font-size: 1.01rem;
+  margin-bottom: 0.2rem;
+  word-break: break-word;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+}
+.notes-label {
+  color: #888;
+  font-size: 0.97rem;
+  font-weight: 600;
+  margin-bottom: 0.2em;
+}
+.notes-content {
+  color: #23272b;
+  font-size: 1rem;
+}
+.text-muted {
+  color: #b0b3b8 !important;
+}
+
+@media (max-width: 576px) {
+  .game-grid {
+    grid-template-columns: 1fr;
+  }
+  .game-card {
+    min-height: 0;
+    padding: 0.7rem 0.5rem;
+  }
+  .game-card-inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 120px;
+    grid-template-rows: auto auto auto auto auto;
+    grid-template-areas:
+      "title cover"
+      "platform cover"
+      "time review"
+      "notes notes"
+      "empty menu";
+    gap: 0.6rem;
+    align-items: start;
+  }
+
+  .game-title    { grid-area: title; margin-bottom: 0; }
+  .game-meta     { grid-area: platform; margin-bottom: 0; }
+  .game-time     { grid-area: time; margin-bottom: 0; }
+  .game-review   { grid-area: review; margin-bottom: 0; }
+  .game-notes    { grid-area: notes; margin-bottom: 0; }
+
+  .game-cover-menu {
+    grid-area: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 0;
+    height: 100%;
+  }
+  .cover-wrapper {
+    width: 120px;
+    height: 150px;
+    margin: 0 auto;
+  }
+  .game-cover-img {
+    width: 120px;
+    height: 150px;
+    object-fit: cover;
+  }
+  .card-menu {
+    grid-area: menu;
+    justify-self: end;
+    align-self: end;
+    margin-top: 0.5rem;
+    position: static;
+    z-index: 2;
+  }
+  .game-info {
+    display: contents;
+    gap: 0;
+  }
+}
+
+/* Dark mode overrides */
+body.bg-dark .game-card {
+  background: #23272b;
+}
+
+body.bg-dark .game-title,
+body.bg-dark .game-meta,
+body.bg-dark .game-time,
+body.bg-dark .game-review,
+body.bg-dark .game-notes {
+  background: #181a20;
+  border: 2px solid #222;
+  color: #f3f3f3;
+}
+
+body.bg-dark .game-meta,
+body.bg-dark .game-time {
+  color: #b0b3b8;
+}
+
+body.bg-dark .game-review {
+  color: #ffd700;
+}
+
+body.bg-dark .game-notes {
+  color: #f3f3f3;
+}
+
+body.bg-dark .notes-label {
+  color: #b0b3b8;
+}
+
+body.bg-dark .notes-content {
+  color: #f3f3f3;
+}
+
+@media (min-width: 700px) {
+  .game-card-inner {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    grid-template-rows: auto auto auto auto auto;
+    grid-template-areas:
+      "title cover"
+      "platform cover"
+      "time cover"
+      "rating cover"
+      "notes notes"
+      "menu menu";
+    gap: 0.7rem 1.2rem;
+    align-items: start;
+    position: relative;
+  }
+
+  .game-title    { grid-area: title;    margin-bottom: 0; }
+  .game-meta     { grid-area: platform; margin-bottom: 0; }
+  .game-time     { grid-area: time;     margin-bottom: 0; }
+  .game-review   { grid-area: rating;   margin-bottom: 0; }
+  .game-notes    { grid-area: notes;    margin-bottom: 0; }
+  .game-cover-menu {
+    grid-area: cover;
+    align-self: start;
+    justify-self: center;
+    min-width: 0;
+    height: 100%;
+  }
+  .cover-wrapper, .game-cover-img {
+    width: 180px;
+    height: 220px;
+    margin: 0 auto;
+  }
+  .card-menu {
+    grid-area: menu;
+    justify-self: end;
+    align-self: end;
+    margin-top: 0.5rem;
+    position: static;
+    z-index: 2;
+  }
+  .game-info {
+    display: contents;
+    gap: 0;
+  }
+}

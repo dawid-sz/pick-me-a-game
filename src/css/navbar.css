@@ -84,3 +84,14 @@ body {
   border: 2px solid #5f4b8b;
   box-shadow: 0 0 0 2px #fff;
 }
+
+.main-title-link {
+  color: #fff !important;
+  font-size: 1.5rem;
+  transition: color 0.18s;
+}
+.main-title-link:hover,
+.main-title-link:focus {
+  color: #e0e0e0 !important;
+  text-decoration: none;
+}

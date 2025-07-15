@@ -50,3 +50,11 @@
 - Fixed some small bugs
 - UX/UI adjustments
 - Privacy and License documents added
+
+## [1.6.0] - 2025-07-15
+### Added
+- Game cards design updated
+- UX/UI fixed on mobile 
+- You can now delete completed games
+- 'About' subpage with content added
+- Bug fixes

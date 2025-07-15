@@ -43,8 +43,8 @@ function saveCompletedGames() {
 // --- Render Active Games ---
 function renderGames() {
   const section = document.getElementById("yourGamesSection");
-  const list = document.getElementById("gameList");
-  list.innerHTML = "";
+  const grid = document.getElementById("gameList");
+  grid.innerHTML = "";
 
   if (games.length === 0) {
     section.style.display = "none";
@@ -54,35 +54,22 @@ function renderGames() {
   }
 
   games.forEach((game, index) => {
-    const li = document.createElement("li");
-    li.className = "list-group-item";
-    let html = `
-      <div class="d-flex flex-column flex-md-row justify-content-between align-items-start gap-2">
-        <div class="flex-fill" id="gameDisplay-${index}">
-          <strong>${game.title}</strong> (${game.platform}) — <em>${game.mode}</em><br />
-          <small>Time played: ${game.time} hrs</small>
+    const card = document.createElement("div");
+    card.className = "game-card";
+    card.innerHTML = `
+      <div class="game-card-inner">
+        <div class="game-info" id="gameDisplay-${index}">
+          <div class="game-title"><strong>${game.title}</strong></div>
+          <div class="game-meta">${game.platform} – ${game.mode}</div>
+          <div class="game-time">Time played: ${game.time} hrs</div>
         </div>
-        <div class="dropdown mt-2 mt-md-0">
-          <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="More actions">
-            <i class="bi bi-three-dots-vertical"></i>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="#" onclick="editGame(${index});return false;"><i class="bi bi-pencil"></i> Edit</a></li>
-            <li><a class="dropdown-item" href="#" onclick="markCompleted(${index});return false;"><i class="bi bi-check2-circle"></i> Mark as Completed</a></li>
-            <li><a class="dropdown-item text-danger" href="#" onclick="deleteGame(${index});return false;"><i class="bi bi-trash"></i> Delete</a></li>
-          </ul>
-        </div>
-      </div>
-    `;
-    if (game.cover) {
-      html = `
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start gap-2">
-          <div class="flex-fill" id="gameDisplay-${index}">
-            <img src="${game.cover}" alt="Cover" class="game-cover-img" />
-            <strong>${game.title}</strong> (${game.platform}) — <em>${game.mode}</em><br />
-            <small>Time played: ${game.time} hrs</small>
+        <div class="game-cover-menu">
+          <div class="cover-wrapper">
+            ${game.cover && game.cover.trim() !== "" 
+  ? `<img src="${game.cover}" alt="Cover" class="game-cover-img" />` 
+  : `<img src="/src/img/placeholder_cover.png" alt="No cover" class="game-cover-img" />`}
           </div>
-          <div class="dropdown mt-2 mt-md-0">
+          <div class="dropdown card-menu">
             <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="More actions">
               <i class="bi bi-three-dots-vertical"></i>
             </button>
@@ -93,18 +80,17 @@ function renderGames() {
             </ul>
           </div>
         </div>
-      `;
-    }
-    li.innerHTML = html;
-    list.appendChild(li);
+      </div>
+    `;
+    grid.appendChild(card);
   });
 }
 
 // --- Render Completed Games ---
 function renderCompletedGames() {
   const section = document.getElementById("completedGamesSection");
-  const list = document.getElementById("finishedGameList");
-  list.innerHTML = "";
+  const grid = document.getElementById("finishedGameList");
+  grid.innerHTML = "";
 
   if (completedGames.length === 0) {
     section.style.display = "none";
@@ -114,37 +100,42 @@ function renderCompletedGames() {
   }
 
   completedGames.forEach((game, index) => {
-    const li = document.createElement("li");
-    li.className = "list-group-item";
-    li.innerHTML = `
-      <div class="d-flex flex-column flex-md-row justify-content-between align-items-start gap-2">
-        <div>
-          ${game.cover ? `<img src="${game.cover}" alt="Cover" class="game-cover-img" />` : ""}
-          <strong>${game.title}</strong> (${game.platform}) — <em>${game.mode}</em>
-          <br><small>Time played: ${game.time} hrs</small>
-          ${game.rating ? `<br><span>Rating: ${'⭐'.repeat(game.rating)}</span>` : ""}
-          ${game.notes ? `<br><span>Notes: ${game.notes}</span>` : ""}
+    const card = document.createElement("div");
+    card.className = "game-card";
+    card.innerHTML = `
+      <div class="game-card-inner">
+        <div class="game-info">
+          <div class="game-title"><strong>${game.title}</strong></div>
+          <div class="game-meta">${game.platform} – ${game.mode}</div>
+          <div class="game-time">Time played: ${game.time} hrs</div>
+          <div class="game-review">
+            ${game.rating ? "★".repeat(game.rating) + "☆".repeat(5 - game.rating) : "No rating"}
+          </div>
+          <div class="game-notes">
+            <div class="notes-label">Notes</div>
+            <div class="notes-content">${game.notes ? game.notes.replace(/\n/g, "<br>") : "<span class='text-muted'>No notes</span>"}</div>
+          </div>
         </div>
-        <div class="dropdown mt-2 mt-md-0">
+        <div class="game-cover-menu">
+          <div class="cover-wrapper">
+            ${game.cover && game.cover.trim() !== "" 
+          ? `<img src="${game.cover}" alt="Cover" class="game-cover-img" />` 
+          : `<img src="/src/img/placeholder_cover.png" alt="No cover" class="game-cover-img" />`}
+          </div>
+        </div>
+        <div class="dropdown card-menu">
           <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="More actions">
             <i class="bi bi-three-dots-vertical"></i>
           </button>
           <ul class="dropdown-menu dropdown-menu-end">
-            <li>
-              <a class="dropdown-item" href="#" onclick="unmarkCompleted(${index});return false;">
-              <i class="bi bi-arrow-counterclockwise"></i> Restore
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#" onclick="editCompletedNotes(${index});return false;">
-              <i class="bi bi-journal-text"></i> Notes
-              </a>
-            </li>
+            <li><a class="dropdown-item" href="#" onclick="editCompletedNotes(${index});return false;"><i class="bi bi-pencil"></i> Edit Notes</a></li>
+            <li><a class="dropdown-item" href="#" onclick="unmarkCompleted(${index});return false;"><i class="bi bi-arrow-counterclockwise"></i> Restore</a></li>
+            <li><a class="dropdown-item text-danger" href="#" onclick="deleteCompletedGame(${index});return false;"><i class="bi bi-trash"></i> Delete</a></li>
           </ul>
         </div>
       </div>
     `;
-    list.appendChild(li);
+    grid.appendChild(card);
   });
 }
 
@@ -198,6 +189,33 @@ function editGame(index) {
       reader.readAsDataURL(file);
     }
   });
+}
+
+function deleteCompletedGame(index) {
+  const confirmationWrapper = document.createElement("div");
+  confirmationWrapper.innerHTML = `
+    <div class="custom-modal-bg" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+                display: flex; align-items: center;
+                justify-content: center; z-index: 9999;">
+      <div class="custom-modal-content" style="padding: 20px; max-width: 300px; text-align: center;">
+        <p>Are you sure you want to delete this completed game?</p>
+        <button class="btn btn-danger btn-sm me-2" id="confirmDeleteCompleted">Yes, delete</button>
+        <button class="btn btn-secondary btn-sm" id="cancelDeleteCompleted">Cancel</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(confirmationWrapper);
+
+  document.getElementById("confirmDeleteCompleted").onclick = () => {
+    completedGames.splice(index, 1);
+    saveCompletedGames();
+    renderCompletedGames();
+    renderStats && renderStats();
+    document.body.removeChild(confirmationWrapper);
+  };
+  document.getElementById("cancelDeleteCompleted").onclick = () => {
+    document.body.removeChild(confirmationWrapper);
+  };
 }
 
 function saveGame(index) {
@@ -312,7 +330,23 @@ function unmarkCompleted(index) {
     alert("Game not found.");
     return;
   }
-  if (confirm(`Move "${game.title}" back to your active game list?`)) {
+
+  // Create custom modal
+  const confirmationWrapper = document.createElement("div");
+  confirmationWrapper.innerHTML = `
+    <div class="custom-modal-bg" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+                display: flex; align-items: center;
+                justify-content: center; z-index: 9999;">
+      <div class="custom-modal-content" style="padding: 20px; max-width: 320px; text-align: center;">
+        <p>Move "<strong>${game.title}</strong>" back to your active game list?</p>
+        <button class="btn btn-success btn-sm me-2" id="confirmRestore">Restore</button>
+        <button class="btn btn-secondary btn-sm" id="cancelRestore">Cancel</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(confirmationWrapper);
+
+  document.getElementById("confirmRestore").onclick = () => {
     games.push(game);
     completedGames.splice(index, 1);
     saveGames();
@@ -320,7 +354,11 @@ function unmarkCompleted(index) {
     renderGames();
     renderCompletedGames();
     renderStats();
-  }
+    document.body.removeChild(confirmationWrapper);
+  };
+  document.getElementById("cancelRestore").onclick = () => {
+    document.body.removeChild(confirmationWrapper);
+  };
 }
 
 // --- Pick Game Logic ---
@@ -514,12 +552,35 @@ function addGame(extraFields) {
 function editCompletedNotes(index) {
   const game = completedGames[index];
   const currentNotes = game.notes || "";
-  const notes = prompt(`Add or edit notes for "${game.title}":`, currentNotes);
-  if (notes !== null) {
-    completedGames[index].notes = notes.trim();
+
+  // Create custom modal
+  const modalWrapper = document.createElement("div");
+  modalWrapper.innerHTML = `
+    <div class="custom-modal-bg" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+                display: flex; align-items: center;
+                justify-content: center; z-index: 9999;">
+      <div class="custom-modal-content" style="padding: 20px; max-width: 340px;">
+        <h5>Edit Notes for "${game.title}"</h5>
+        <textarea class="form-control mb-3" id="editNotesArea" rows="4" style="resize:vertical;">${currentNotes}</textarea>
+        <div class="d-flex gap-2 justify-content-end">
+          <button class="btn btn-success btn-sm" id="saveNotesBtn">Save</button>
+          <button class="btn btn-secondary btn-sm" id="cancelNotesBtn">Cancel</button>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modalWrapper);
+
+  document.getElementById("saveNotesBtn").onclick = () => {
+    const notes = document.getElementById("editNotesArea").value.trim();
+    completedGames[index].notes = notes;
     saveCompletedGames();
     renderCompletedGames();
-  }
+    document.body.removeChild(modalWrapper);
+  };
+  document.getElementById("cancelNotesBtn").onclick = () => {
+    document.body.removeChild(modalWrapper);
+  };
 }
 
 function renderStats() {

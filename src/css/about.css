@@ -1,0 +1,124 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+}
+
+.subpage-container {
+  flex: 1 0 auto;
+  display: flex;
+  max-width: 1200px;
+  margin: 40px auto 0 auto;
+  gap: 2.5rem;
+  padding: 0 1rem;
+  min-height: 35  0px;
+}
+
+footer.footer-image {
+  flex-shrink: 0;
+  width: 100%;
+}
+
+
+.main-content {
+  flex: 5 1 0;      /* Make main content much wider */
+  background: #fff;
+  color: #23272b;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 2.5rem 2rem;
+  min-width: 50vw;
+}
+
+.side-menu {
+  flex: 0 0 220px;  /* Keep menu narrow and fixed */
+  max-width: 240px;
+  background: #f7f7fa;
+  color: #23272b;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 2rem 1.2rem;
+  margin-top: 0;
+  height: fit-content;
+}
+
+.side-menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.side-menu-link {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  color: #23272b;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.08rem;
+  padding: 0.6em 0.2em;
+  border-radius: 6px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.side-menu-link.active,
+.side-menu-link:hover {
+  background: #e0e0e0;
+  color: #111;
+}
+
+/* Dark mode */
+body.bg-dark .main-content {
+  background: #23272b;
+  color: #f3f3f3;
+}
+
+body.bg-dark .side-menu {
+  background: #181a20;
+  color: #f3f3f3;
+}
+
+body.bg-dark .side-menu-link {
+  color: #f3f3f3;
+}
+body.bg-dark .side-menu-link.active,
+body.bg-dark .side-menu-link:hover {
+  background: #23272b;
+  color: #fff;
+}
+
+footer.footer-image {
+  margin-top: auto;
+  /* Push footer to bottom if content is short */
+  width: 100%;
+  /* Optional: ensures footer doesn't overlap content */
+}
+
+@media (max-width: 900px) {
+  .subpage-container {
+    flex-direction: column-reverse;
+    gap: 1.5rem;
+    max-width: 100% !important;   /* Override desktop max-width */
+    width: 100% !important;       /* Ensure full width */
+    margin: 0 !important;         /* Remove auto margin */
+    padding: 0 1rem !important;        /* Remove side padding */
+  }
+  .side-menu {
+    max-width: 100%;
+    margin-top: 1rem;
+    padding: 1.2rem 0.7rem;
+  }
+  .main-content {
+    padding: 1.5rem 0.7rem;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}

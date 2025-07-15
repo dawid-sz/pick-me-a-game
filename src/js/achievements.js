@@ -72,7 +72,6 @@ function renderAchievements() {
   const section = document.getElementById('achievementsSection');
   if (!section) return;
 
-  // Only show unlocked achievements
   const unlockedList = ACHIEVEMENTS.filter(ach => unlocked.has(ach.id));
   if (unlockedList.length === 0) {
     section.classList.add('d-none');
@@ -81,19 +80,62 @@ function renderAchievements() {
 
   section.classList.remove('d-none');
   section.innerHTML = `
-  <h4 class="mb-3">🏅 Achievements</h4>
-  <div class="achievements-grid">
-    ${unlockedList.map(ach => `
-      <div class="achievement-card unlocked">
-        <div class="achievement-badge">🏆</div>
-        <div class="achievement-text-area">
-            <div class="achievement-title">${ach.name}</div>
-            <div class="achievement-desc">${ach.desc}</div>
+    <h4 class="mb-3">🏅 Achievements</h4>
+    <div class="achievements-grid" id="achievementsGrid">
+      ${unlockedList.map((ach, i) => `
+        <div class="achievement-card unlocked${i >= 5 ? ' achievement-collapsed' : ' achievement-expanded'}">
+          <div class="achievement-badge">🏆</div>
+          <div class="achievement-text-area">
+              <div class="achievement-title">${ach.name}</div>
+              <div class="achievement-desc">${ach.desc}</div>
+          </div>
         </div>
-      </div>
-    `).join('')}
-  </div>
-`;
+      `).join('')}
+    </div>
+    ${unlockedList.length > 5 ? `
+      <button id="toggleAchievementsBtn" class="btn btn-outline-secondary btn-xs mt-2" style="width:120px;">Show more</button>
+    ` : ''}
+  `;
+
+  if (unlockedList.length > 3) {
+    const btn = document.getElementById('toggleAchievementsBtn');
+    const cards = section.querySelectorAll('.achievement-card.unlocked');
+    let expanded = false;
+
+    if (btn) {
+      btn.addEventListener('click', () => {
+        expanded = !expanded;
+        cards.forEach((card, i) => {
+          if (i >= 3) {
+            if (expanded) {
+              card.style.display = 'flex';
+              // Force reflow for transition
+              void card.offsetWidth;
+              card.classList.remove('achievement-collapsing');
+              card.classList.add('achievement-expanded');
+            } else {
+              card.classList.remove('achievement-expanded');
+              card.classList.add('achievement-collapsing');
+              // After transition, hide completely
+              setTimeout(() => {
+                if (!expanded) card.style.display = 'none';
+              }, 300);
+            }
+          }
+        });
+        btn.textContent = expanded ? 'Show less' : 'Show more';
+      });
+    }
+
+    // Initial state: collapse extra cards
+    cards.forEach((card, i) => {
+      if (i >= 3) {
+        card.classList.remove('achievement-expanded');
+        card.classList.add('achievement-collapsing');
+        card.style.display = 'none';
+      }
+    });
+  }
 }
 
 // Call this on app load

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About | Pick Me a Game</title>
+  <link href="/src/css/index.css" rel="stylesheet">
+  <link href="/src/css/footer.css" rel="stylesheet">
+  <link href="/src/css/about.css" rel="stylesheet">
+  <link href="/src/css/navbar.css" rel="stylesheet">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#090b15">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+</head>
+<body class="bg-light">
+
+  <!-- Navbar -->
+  <nav id="mainNavbar" class="main-navbar d-flex align-items-center justify-content-between px-3 px-md-4">
+    <a href="/index.html" class="navbar-title fw-bold text-decoration-none main-title-link">
+      Pick Me a Game
+    </a>
+    <div class="theme-toggle form-check form-switch mb-0 d-flex align-items-center justify-content-center">
+      <input class="form-check-input" type="checkbox" id="themeSwitch" aria-label="Toggle dark mode">
+      <i id="themeIcon" class="bi bi-moon ms-2" style="font-size: 1.4rem;"></i>
+    </div>
+  </nav>
+
+  <div class="subpage-container mb-5">
+    <main class="main-content" id="mainContent">
+      <!-- Default content (About) will be loaded here -->
+    </main>
+    <aside class="side-menu">
+      <nav>
+        <ul class="side-menu-list">
+          <li><a href="#" class="side-menu-link mb-2 active" data-section="about"><i class="bi bi-info-circle"></i> About</a></li>
+          <li><a href="#" class="side-menu-link mb-2" data-section="contact"><i class="bi bi-envelope"></i> Contact</a></li>
+          <li><a href="#" class="side-menu-link mb-2" data-section="faq"><i class="bi bi-question-circle"></i> FAQ</a></li>
+          <li><a href="#" class="side-menu-link" data-section="privacy"><i class="bi bi-shield-lock"></i> Privacy</a></li>
+        </ul>
+      </nav>
+    </aside>
+  </div>
+
+  <footer class="footer-image d-flex flex-column justify-content-center align-items-center">
+    <nav class="footer-nav mb-2">
+      <a href="/index.html" class="me-3 footer-link">Home</a>
+      <a href="#" class="footer-link me-3" onclick="showSection('about');return false;">About</a>
+      <a href="#" class="footer-link me-3" onclick="showSection('contact');return false;">Contact</a>
+      <a href="#" class="footer-link me-3" onclick="showSection('faq');return false;">FAQ</a>
+      <a href="#" class="footer-link me-3" onclick="showSection('privacy');return false;">Privacy</a>
+    </nav>
+    <div class="footer-meta text-center">
+      <a href="https://github.com/dawid-sz/pick-me-a-game/blob/main/CHANGELOG.md" class="footer-link" target="_blank" rel="noopener">
+        v1.5.0
+      </a>
+      • Built with <span style="color:#e25555;">&#10084;&#65039;</span> by Dawid for Gamers — 2025
+    </div>
+  </footer>
+
+<script src="/src/js/about.js" defer></script>
+<script src="/src/js/theme.js" defer></script>
+
+</body>
+</html>
