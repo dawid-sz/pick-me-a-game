@@ -67,7 +67,7 @@ function renderGames() {
           <div class="cover-wrapper">
             ${game.cover && game.cover.trim() !== "" 
   ? `<img src="${game.cover}" alt="Cover" class="game-cover-img" />` 
-  : `<img src="/src/img/placeholder_cover.png" alt="No cover" class="game-cover-img" />`}
+  : `<img src="src/img/placeholder_cover.png" alt="No cover" class="game-cover-img" />`}
           </div>
           <div class="dropdown card-menu">
             <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="More actions">
@@ -120,7 +120,7 @@ function renderCompletedGames() {
           <div class="cover-wrapper">
             ${game.cover && game.cover.trim() !== "" 
           ? `<img src="${game.cover}" alt="Cover" class="game-cover-img" />` 
-          : `<img src="/src/img/placeholder_cover.png" alt="No cover" class="game-cover-img" />`}
+          : `<img src="src/img/placeholder_cover.png" alt="No cover" class="game-cover-img" />`}
           </div>
         </div>
         <div class="dropdown card-menu">
