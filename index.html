@@ -190,7 +190,37 @@
     </div>
 
      <!-- Achievements Section (hidden by default) -->
-<div id="achievementsSection" class="section-container mb-4 d-none"></div>
+    <div id="achievementsSection" class="section-container mb-4 d-none"></div>
+
+
+    <!-- Goals Section -->
+    <div id="goalsSection" class="section-container mb-4">
+      <h4>🎯 Your Goals:</h4>
+      <form id="addGoalForm" class="row g-2 mb-3 align-items-end">
+        <div class="col-md-4">
+          <select class="form-select" id="goalType" required>
+            <option value="" disabled selected>Select Goal Type</option>
+            <option value="completed">Games Completed</option>
+            <option value="sessions">Log Play Sessions</option>
+            <option value="trophies">Trophy Hunt!</option>
+            <option value="picker">Use Picker X Times</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <input type="number" class="form-control" id="goalTarget" min="1" placeholder="Target Number" required />
+        </div>
+        <div class="col-md-3" id="goalDeadlineWrapper" style="display:none;">
+          <input type="date" class="form-control" id="goalDeadline" />
+        </div>
+        <div class="col-md-2 d-grid">
+          <button type="submit" class="btn btn-success">Add Goal</button>
+        </div>
+        <div class="col-12">
+          <div id="goalTypeDesc" class="form-text mt-2 text-danger"></div>
+        </div>
+      </form>
+      <div id="goalsList"></div>
+    </div>
 
 
     <!-- backup / restore whole APP -->
@@ -205,20 +235,22 @@
 
   </div>
 
-<footer class="footer-image d-flex flex-column justify-content-center align-items-center">
-  <nav class="footer-nav mb-2">
-    <a href="src/html/about.html#about" class="footer-link me-3">About</a>
-    <a href="src/html/about.html#contact" class="footer-link me-3">Contact</a>
-    <a href="src/html/about.html#faq" class="footer-link me-3">FAQ</a>
-    <a href="src/html/about.html#privacy" class="footer-link me-3">Privacy</a>
-  </nav>
-  <div class="footer-meta text-center">
-    <a href="https://github.com/dawid-sz/pick-me-a-game/blob/main/CHANGELOG.md" class="footer-link" target="_blank" rel="noopener">
-      v1.6.0
-    </a>
-    • Built with <span style="color:#e25555;">&#10084;&#65039;</span> by Gamer for Gamers — 2025
-  </div>
-</footer>
+
+  <!-- footer -->
+  <footer class="footer-image d-flex flex-column justify-content-center align-items-center">
+    <nav class="footer-nav mb-2">
+      <a href="src/html/about.html#about" class="footer-link me-3">About</a>
+      <a href="src/html/about.html#contact" class="footer-link me-3">Contact</a>
+      <a href="src/html/about.html#faq" class="footer-link me-3">FAQ</a>
+      <a href="src/html/about.html#privacy" class="footer-link me-3">Privacy</a>
+    </nav>
+    <div class="footer-meta text-center">
+      <a href="https://github.com/dawid-sz/pick-me-a-game/blob/main/CHANGELOG.md" class="footer-link" target="_blank" rel="noopener">
+        v1.7.0
+      </a>
+      • Built with <span style="color:#e25555;">&#10084;&#65039;</span> by Gamer for Gamers — 2025
+    </div>
+  </footer>
 
 <!-- Achievement Popup -->
 
@@ -289,6 +321,7 @@
   <script src="src/js/avatar_nickname.js" defer></script>
   <script src="src/js/greetings.js" defer></script>
   <script src="src/js/messages.js" defer></script>
+  <script src="src/js/goals.js" defer></script>
 
   
 

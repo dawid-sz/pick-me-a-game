@@ -34,7 +34,7 @@ footer.footer-image {
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.07);
   padding: 2.5rem 2rem;
-  min-width: 50vw;
+  min-width: 40vw;
 }
 
 .side-menu {
@@ -101,7 +101,7 @@ footer.footer-image {
   /* Optional: ensures footer doesn't overlap content */
 }
 
-@media (max-width: 900px) {
+@media (max-width: 991.98px) { 
   .subpage-container {
     flex-direction: column-reverse;
     gap: 1.5rem;
@@ -121,4 +121,4 @@ footer.footer-image {
     width: 100%;
     box-sizing: border-box;
   }
-}
+ }

@@ -38,7 +38,7 @@
 ## [1.4.0] - 2025-07-13
 ### Added
 - Designed custom pop-out's instead of the generic one
-- Now you can Add the WebApp to your home screen (works on iOS) and launch it in full screen mode
+- Now you can Add the WebApp to your home screen and launch it in full screen mode
 - Changed folder structure in the project
 - You can now set your own Nickname and upload your image
 - UX/UI changes
@@ -58,3 +58,8 @@
 - You can now delete completed games
 - 'About' subpage with content added
 - Bug fixes
+
+## [1.7.0] - 2025-07-17
+### Added
+- When added to Home Screen on mobile, user will get a pop-out after detecting update
+- You can now set goals to complete and see how many goals you have completed in your stats

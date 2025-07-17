@@ -1,4 +1,4 @@
-# 🎮 pick-me-a-game v1.6.0
+# 🎮 pick-me-a-game v1.7.0
 
 Tired of staring at your game library, unsure what to play next?<br><br>
 
@@ -21,6 +21,12 @@ Tired of staring at your game library, unsure what to play next?<br><br>
 • 👋 Over 100 random greetings on every visit<br>
 • 📤 Share picked games or your entire game list with a link<br>
 • 🔒 Your data stays 100% on your device — never uploaded or shared<br>
+• 📱 Add to Home Screen function on iOS and Android to have a native App experience<br>
+• 🎯 Set some goals that you want to complete<br>
+
+
+
+    
 
 <br>
 

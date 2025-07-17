@@ -16,7 +16,7 @@ const sections = {
     `,
     contact: `
     <h1>Contact</h1>
-    <form>
+    <form class="contact-form">
         <div class="mb-3">
         <label for="contactSubject" class="form-label">Subject</label>
         <select class="form-select" id="contactSubject">
@@ -102,7 +102,7 @@ const sections = {
     </ul>
 
     <h4 class="mt-4">📬 Contact</h4>
-    <p>Questions? Feedback? Reach out via <a href="https://github.com/dawid-sz/pick-me-a-game" target="_blank" rel="noopener noreferrer">GitHub</a> or Reddit. I’m happy to chat with fellow gamers.</p>
+    <p>Questions? Feedback? Reach out via <a href="https://github.com/dawid-sz/pick-me-a-game" target="_blank" rel="noopener noreferrer">GitHub</a> or the "Contact" form. I’m happy to chat with fellow gamers.</p>
     `
 };
 

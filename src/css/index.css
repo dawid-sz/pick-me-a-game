@@ -459,3 +459,25 @@ body.bg-dark .dropdown-menu .dropdown-item.text-danger {
 @media (min-width: 500px) {
   .custom-modal-content { min-width: 350px; }
 }
+
+
+/* Goals section dark mode styles */
+body.bg-dark #goalsSection {
+  background: #23272b;
+  color: #f3f3f3;
+}
+
+body.bg-dark #goalsSection .card {
+  background: #232533;
+  color: #f3f3f3;
+  border-color: #333;
+}
+
+body.bg-dark #goalsSection .progress {
+  background: #181a23;
+}
+
+body.bg-dark #goalsSection .progress-bar {
+  background: #2ecc71;
+  color: #fff;
+}

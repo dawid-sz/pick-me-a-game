@@ -2,6 +2,58 @@
 let games = JSON.parse(localStorage.getItem("gameList") || "[]");
 let completedGames = JSON.parse(localStorage.getItem("completedGames") || "[]");
 let lastPickedIndex = -1;
+let goalsCompleted = parseInt(localStorage.getItem("goalsCompleted") || "0");
+
+// mobile full screen PWA
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('service-worker.js');
+  });
+}
+
+// Service Worker update prompt
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('service-worker.js').then(reg => {
+      reg.onupdatefound = () => {
+        const newWorker = reg.installing;
+        newWorker.onstatechange = () => {
+          if (newWorker.state === 'installed') {
+            if (navigator.serviceWorker.controller) {
+              showUpdatePrompt();
+            }
+          }
+        };
+      };
+    });
+  });
+}
+
+function showUpdatePrompt() {
+  // Create a custom modal for update prompt
+  const modal = document.createElement('div');
+  modal.innerHTML = `
+    <div class="custom-modal-bg" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      display: flex; align-items: center; justify-content: center; z-index: 9999;">
+      <div class="custom-modal-content" style="padding: 20px; max-width: 320px; text-align: center;">
+        <h5>Update Available</h5>
+        <p>A new version of Pick Me a Game is available.</p>
+        <div class="d-flex gap-2 justify-content-center mt-3">
+          <button class="btn btn-success btn-sm" id="applyUpdateBtn">Apply Update</button>
+          <button class="btn btn-secondary btn-sm" id="declineUpdateBtn">Later</button>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  document.getElementById('applyUpdateBtn').onclick = () => {
+    window.location.reload();
+  };
+  document.getElementById('declineUpdateBtn').onclick = () => {
+    document.body.removeChild(modal);
+  };
+}
 
 //achievements 
 function buildAppState() {
@@ -315,6 +367,7 @@ function markCompleted(index) {
     renderStats();
     showAchievementPopup();
     checkAchievements(buildAppState());
+    if (typeof renderGoals === "function") renderGoals();
     modal.classList.add('d-none');
   };
 
@@ -396,6 +449,8 @@ function pickGame() {
   checkAchievements(buildAppState());
   window._picked = false;
   showRandomMessage();
+
+  if (window.incrementPickerGoals) window.incrementPickerGoals();
 }
 
 function pickTwoGames() {
@@ -611,6 +666,7 @@ function renderStats() {
       <li>Total hours played: ${totalHours} hrs</li>
       <li>Favorite platform: ${favoritePlatform}</li>
       <li>Achievements unlocked: ${unlockedCount} of 25</li>
+      <li>Goals completed: ${goalsCompleted}</li>
     </ul>
   `;
 }
@@ -697,6 +753,7 @@ function getAppState() {
     daysUsed: JSON.parse(localStorage.getItem('daysUsed') || '[]'),
     pmag_nickname: localStorage.getItem('pmag_nickname') || '',
     pmag_avatar: localStorage.getItem('pmag_avatar') || '',
+    goals: JSON.parse(localStorage.getItem('goalsList') || '[]'),
     // Add more fields here as you add features
   };
 }
@@ -721,6 +778,11 @@ function setAppState(state) {
   }
   if (typeof state.pmag_avatar === "string") {
     localStorage.setItem('pmag_avatar', state.pmag_avatar);
+  }
+  if (state.goals) { // <-- Add this block
+    localStorage.setItem('goalsList', JSON.stringify(state.goals));
+    window.goals = state.goals;
+    if (typeof renderGoals === "function") renderGoals();
   }
   // Add more fields here as you add features
   saveGames();
@@ -807,10 +869,8 @@ function showAchievementPopup(message) {
   }, 5000);
 }
 
-
-// mobile full screen PWA
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('service-worker.js');
-  });
+function incrementGoalsCompleted() {
+  goalsCompleted++;
+  localStorage.setItem("goalsCompleted", goalsCompleted);
+  renderStats();
 }

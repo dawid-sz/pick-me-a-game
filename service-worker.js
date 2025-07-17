@@ -1,6 +1,8 @@
+const CACHE_NAME = 'pick-me-a-game-v1.7.0'; // <-- bump this on each release
+
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open('pick-me-a-game-v1').then(cache => {
+    caches.open(CACHE_NAME).then(cache => {
       return cache.addAll([
         'index.html',
         'src/html/about.html',
@@ -33,6 +35,17 @@ self.addEventListener('install', event => {
         'manifest.json'
       ]);
     })
+  );
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(
+        keys.filter(key => key !== CACHE_NAME)
+          .map(key => caches.delete(key))
+      )
+    )
   );
 });
 
