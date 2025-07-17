@@ -1,7 +1,8 @@
 {
   "name": "Pick Me a Game",
   "short_name": "PickMeAGame",
-  "start_url": ".",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#181f1b",
   "theme_color": "#090b15",
