@@ -1,9 +1,29 @@
 const defaultAvatar = './src/img/default_avatar_5.png';
 
-function openProfileModal() {
+async function resolveAvatarSource(value) {
+  if (!value) return defaultAvatar;
+  if (window.MediaStore) {
+    const resolved = await window.MediaStore.resolveMediaReference(value);
+    return resolved || defaultAvatar;
+  }
+  return value;
+}
+
+async function persistAvatar(value) {
+  const normalized = window.MediaStore
+    ? await window.MediaStore.prepareMediaReference(value)
+    : value;
+  localStorage.setItem('pmag_avatar', normalized || '');
+  if (typeof window.requestMediaCleanup === "function") {
+    window.requestMediaCleanup();
+  }
+  return normalized;
+}
+
+async function openProfileModal() {
   const avatar = localStorage.getItem('pmag_avatar');
   const avatarPreview = document.getElementById('avatarPreview');
-  avatarPreview.src = avatar && avatar !== '' ? avatar : defaultAvatar;
+  avatarPreview.src = await resolveAvatarSource(avatar);
   // Remove highlight from all choices
   document.querySelectorAll('.avatar-choice').forEach(img => img.classList.remove('selected'));
   // Highlight the selected avatar if one of the defaults is chosen
@@ -13,7 +33,7 @@ function openProfileModal() {
 
 }
 
-function showProfileModal() {
+async function showProfileModal() {
   const modal = document.getElementById('profileModal');
   const nicknameInput = document.getElementById('nicknameInput');
   const avatarPreview = document.getElementById('avatarPreview');
@@ -21,7 +41,7 @@ function showProfileModal() {
 
   // Load current values
   nicknameInput.value = localStorage.getItem('pmag_nickname') || '';
-  avatarPreview.src = localStorage.getItem('pmag_avatar') || defaultAvatar;
+  avatarPreview.src = await resolveAvatarSource(localStorage.getItem('pmag_avatar'));
 
   modal.classList.remove('d-none');
   nicknameInput.focus();
@@ -38,15 +58,15 @@ function showProfileModal() {
 }
 
 // Save profile
-document.getElementById('saveProfileBtn').onclick = function() {
+document.getElementById('saveProfileBtn').onclick = async function() {
   const nickname = document.getElementById('nicknameInput').value.trim();
   const avatarSrc = document.getElementById('avatarPreview').src;
   if (nickname.length > 0) {
     localStorage.setItem('pmag_nickname', nickname);
-    if (avatarSrc && avatarSrc.startsWith('data:image')) {
-      localStorage.setItem('pmag_avatar', avatarSrc);
+    if (avatarSrc && avatarSrc !== defaultAvatar) {
+      await persistAvatar(avatarSrc);
     }
-    updateProfileDisplay();
+    await updateProfileDisplay();
     document.getElementById('profileModal').classList.add('d-none');
   } else {
     document.getElementById('nicknameInput').classList.add('is-invalid');
@@ -62,7 +82,7 @@ document.getElementById('closeProfileModal').onclick = function() {
 document.getElementById('editProfileBtn').onclick = showProfileModal;
 
 // Show profile display if set
-function updateProfileDisplay() {
+async function updateProfileDisplay() {
   const nickname = localStorage.getItem('pmag_nickname');
   const avatar = localStorage.getItem('pmag_avatar');
   const display = document.getElementById('profileDisplay');
@@ -71,7 +91,7 @@ function updateProfileDisplay() {
   if (nickname) {
     display.classList.remove('d-none');
     nickSpan.textContent = nickname;
-    avatarImg.src = avatar && avatar !== '' ? avatar : defaultAvatar;
+    avatarImg.src = await resolveAvatarSource(avatar);
   } else {
     display.classList.add('d-none');
   }
@@ -83,11 +103,11 @@ const avatarPreview = document.getElementById('avatarPreview');
 
 // Handle default avatar selection
 avatarChoices.forEach(img => {
-  img.addEventListener('click', () => {
+  img.addEventListener('click', async () => {
     avatarChoices.forEach(i => i.classList.remove('selected'));
     img.classList.add('selected');
     avatarPreview.src = img.dataset.avatar;
-    localStorage.setItem('pmag_avatar', img.dataset.avatar);
+    await persistAvatar(img.dataset.avatar);
   });
 });
 
@@ -96,10 +116,10 @@ avatarInput.addEventListener('change', function() {
   const file = this.files[0];
   if (!file) return;
   const reader = new FileReader();
-  reader.onload = function(e) {
+  reader.onload = async function(e) {
     avatarPreview.src = e.target.result;
     avatarChoices.forEach(i => i.classList.remove('selected'));
-    localStorage.setItem('pmag_avatar', e.target.result);
+    await persistAvatar(e.target.result);
   };
   reader.readAsDataURL(file);
 });

@@ -15,6 +15,7 @@
   <link href="src/css/achievements.css" rel="stylesheet">
   <link href="src/css/navbar.css" rel="stylesheet">
   <link href="src/css/game-cards.css" rel="stylesheet">
+  <link href="src/css/shop.css" rel="stylesheet">
   <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
@@ -37,9 +38,16 @@
       <i class="bi bi-pencil-fill"></i>
     </button>
   </div>
-  <div class="theme-toggle form-check form-switch mb-0 d-flex align-items-center justify-content-center">
-    <input class="form-check-input" type="checkbox" id="themeSwitch" aria-label="Toggle dark mode">
-    <i id="themeIcon" class="bi bi-moon ms-2" style="font-size: 1.4rem;"></i>
+  <div class="d-flex align-items-center gap-2">
+    <div id="coinDisplay" class="coin-display" title="Your coins">
+      <i class="bi bi-coin"></i>
+      <span id="coinCount">0</span>
+    </div>
+    <button id="openShopBtn" type="button" class="btn btn-sm btn-outline-light shop-btn" title="Open cosmetics shop">Shop</button>
+    <div class="theme-toggle form-check form-switch mb-0 d-flex align-items-center justify-content-center">
+      <input class="form-check-input" type="checkbox" id="themeSwitch" aria-label="Toggle dark mode">
+      <i id="themeIcon" class="bi bi-moon ms-2" style="font-size: 1.4rem;"></i>
+    </div>
   </div>
 </nav>
 
@@ -55,6 +63,8 @@
 
 
   <div class="container-lg my-5" style="max-width: 950px;">
+
+    <div id="appSystemNotice" class="alert alert-info d-none" role="status" aria-live="polite"></div>
 
     <!-- Greeting Banner -->
     <div id="greetingBanner" class="greeting-banner d-none"></div>
@@ -75,7 +85,20 @@
       </div>
       <form id="addGameForm" class="row g-3 mb-4">
         <div class="col-md-4">
-          <input type="text" class="form-control" id="gameTitle" placeholder="Game Title" required />
+          <div class="input-group">
+            <input type="text" class="form-control" id="gameTitle" placeholder="Game Title" required />
+            <button class="btn btn-outline-secondary" type="button" id="searchGameBtn" title="Search game title suggestions">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+          <input type="hidden" id="gameCoverUrl" value="" />
+          <div class="mt-2">
+            <label for="coverQuality" class="form-label mb-1 small">Cover Quality</label>
+            <select id="coverQuality" class="form-select form-select-sm" title="Choose fast thumbnail or best quality cover">
+              <option value="high" selected>Best quality</option>
+              <option value="fast">Fast thumbnail</option>
+            </select>
+          </div>
         </div>
         <div class="col-md-3">
           <select class="form-select" id="gamePlatform">
@@ -118,6 +141,9 @@
                  class="form-control"
                  title="Upload a cover image for this game (JPG, PNG, etc.)" />
         </div>
+        <div class="col-12">
+          <div id="gameSearchResults" class="list-group d-none" aria-live="polite"></div>
+        </div>
       </form>
       <div id="gameAddedAlert" class="alert alert-success d-none" role="alert">
         Game added!
@@ -148,6 +174,19 @@
       <div class="form-check form-check-inline">
         <input class="form-check-input" type="checkbox" id="onlyMP" />
         <label class="form-check-label" for="onlyMP">Only Multiplayer</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="avoidRecentPicks" checked />
+        <label class="form-check-label" for="avoidRecentPicks">Avoid recently picked</label>
+      </div>
+      <div class="mt-2 mb-2" style="max-width: 320px;">
+        <label for="moodFilter" class="form-label mb-1">Mood Filter</label>
+        <select id="moodFilter" class="form-select form-select-sm">
+          <option value="any" selected>Any mood</option>
+          <option value="short">Short session</option>
+          <option value="story">Story-heavy</option>
+          <option value="multiplayer">Multiplayer now</option>
+        </select>
       </div>
 
     <!--Picked Game Result -->
@@ -187,6 +226,7 @@
     <div class="section-container mb-4">
       <h4>🏆 Your Stats:</h4>
       <div id="statsBox" class="mb-2"></div>
+      <div id="weeklyChallengeBox" class="mt-3"></div>
     </div>
 
      <!-- Achievements Section (hidden by default) -->
@@ -230,6 +270,7 @@
         <button class="btn btn-outline-primary btn-xs" title="Export whole App" onclick="exportAppState()">⬇️ Export Backup</button>
         <input type="file" id="importBackupFile" accept=".json" style="display:none" />
         <button class="btn btn-outline-secondary btn-xs" title="Import your App" onclick="document.getElementById('importBackupFile').click()">⬆️ Import Backup</button>
+        <button class="btn btn-outline-warning btn-xs" title="Restore your state before the last import" onclick="restoreLastImportBackup()">↩️ Restore Last Import</button>
       </div>
     </div>
 
@@ -313,12 +354,27 @@
   </div>
 </div>
 
+<div id="shopModal" class="custom-modal-bg d-none">
+  <div class="custom-modal-content" style="max-width:560px;width:95%;">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h5 class="mb-0">Cosmetics Shop</h5>
+      <button type="button" class="btn btn-sm btn-secondary" id="closeShopBtn">Close</button>
+    </div>
+    <p class="small mb-3">Spend coins on cosmetics. Core picker and tracking stay free.</p>
+    <div id="shopItems" class="shop-grid"></div>
+  </div>
+</div>
+
 
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="src/js/backup_schema.js" defer></script>
+  <script src="src/js/media_store.js" defer></script>
   <script src="src/js/index.js" defer></script>
   <script src="src/js/addyourgame_toggle.js" defer></script>
   <script src="src/js/achievements.js" defer></script>
   <script src="src/js/avatar_nickname.js" defer></script>
+  <script src="src/js/game_lookup.js" defer></script>
+  <script src="src/js/shop.js" defer></script>
   <script src="src/js/greetings.js" defer></script>
   <script src="src/js/messages.js" defer></script>
   <script src="src/js/goals.js" defer></script>

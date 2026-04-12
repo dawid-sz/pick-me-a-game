@@ -1,4 +1,5 @@
-const CACHE_NAME = 'pick-me-a-game-v1.7.0'; // <-- bump this on each release
+const CACHE_NAME = 'pick-me-a-game-v1.8.0';
+const IS_LOCALHOST = self.location.hostname === 'localhost' || self.location.hostname === '127.0.0.1';
 
 self.addEventListener('install', event => {
   event.waitUntil(
@@ -11,6 +12,11 @@ self.addEventListener('install', event => {
         'src/js/index.js',
         'src/js/addyourgame_toggle.js',
         'src/js/achievements.js',
+        'src/js/avatar_nickname.js',
+        'src/js/game_lookup.js',
+        'src/js/shop.js',
+        'src/js/media_store.js',
+        'src/js/backup_schema.js',
         'src/js/about.js',
 
         // CSS
@@ -20,6 +26,8 @@ self.addEventListener('install', event => {
         'src/css/footer.css',
         'src/css/about.css',
         'src/css/game-cards.css',
+        'src/css/navbar.css',
+        'src/css/shop.css',
         'favicon_io/android-chrome-192x192.png',
         'favicon_io/android-chrome-512x512.png',
 
@@ -45,11 +53,16 @@ self.addEventListener('activate', event => {
         keys.filter(key => key !== CACHE_NAME)
           .map(key => caches.delete(key))
       )
-    )
+    ).then(() => self.clients.claim())
   );
 });
 
 self.addEventListener('fetch', event => {
+  if (IS_LOCALHOST) {
+    event.respondWith(fetch(event.request).catch(() => caches.match(event.request)));
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request).then(response => {
       return response || fetch(event.request);

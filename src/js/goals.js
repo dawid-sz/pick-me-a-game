@@ -22,6 +22,11 @@ function saveGoals() {
   localStorage.setItem("goalsList", JSON.stringify(goals));
 }
 
+window.syncGoalsFromStorage = function() {
+  goals = JSON.parse(localStorage.getItem("goalsList") || "[]");
+  renderGoals();
+};
+
 function renderGoals() {
   const goalsList = document.getElementById("goalsList");
   goalsList.innerHTML = "";

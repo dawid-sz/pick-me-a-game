@@ -1,0 +1,83 @@
+.coin-display {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffe08a;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.shop-btn {
+  min-width: 64px;
+}
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0.8rem;
+}
+
+.shop-item {
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 10px;
+  padding: 0.8rem;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.shop-item h6 {
+  margin-bottom: 0.4rem;
+}
+
+.shop-item .cost {
+  color: #ffe08a;
+  font-weight: 700;
+}
+
+.shop-item.owned {
+  border-color: #39c67a;
+}
+
+body.pmag-theme-arcade {
+  background: linear-gradient(180deg, #132033 0%, #190f2f 42%, #121212 100%) !important;
+  color: #f2f7ff !important;
+}
+
+body.pmag-theme-arcade .section-container {
+  background: rgba(20, 25, 45, 0.9);
+  border-color: rgba(76, 120, 255, 0.4);
+}
+
+body.pmag-theme-sunset {
+  background: linear-gradient(180deg, #402822 0%, #2d1834 48%, #191426 100%) !important;
+  color: #fff2eb !important;
+}
+
+body.pmag-theme-sunset .section-container {
+  background: rgba(63, 28, 40, 0.9);
+  border-color: rgba(255, 154, 102, 0.35);
+}
+
+body.pmag-theme-ice {
+  background: linear-gradient(180deg, #e3f4fb 0%, #d4eaff 55%, #edf8ff 100%) !important;
+  color: #173042 !important;
+}
+
+body.pmag-theme-ice .section-container {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(66, 144, 196, 0.35);
+}
+
+@media (max-width: 600px) {
+  .coin-display {
+    font-size: 0.85rem;
+    padding: 0.15rem 0.45rem;
+  }
+
+  .shop-btn {
+    min-width: 54px;
+    padding: 0.2rem 0.45rem;
+  }
+}

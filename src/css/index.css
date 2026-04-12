@@ -231,11 +231,8 @@ body.bg-dark #pickedGame {
 }
 
 .game-cover-img {
-  width: 100px;
-  object-fit: cover;
-  border-radius: 3px;
-  margin-right: 8px;
-  vertical-align: middle;
+  max-width: 100%;
+  height: auto;
 }
 
 
